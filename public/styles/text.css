@@ -1,0 +1,27 @@
+@import url("colors.css");
+
+.text-dark{
+    color: var(--black-color);
+}
+
+.text-primary{
+    color: var(--blue-color);
+}
+
+.text-secondary{
+    color: var(--grey-color);
+}
+
+.text-warning{
+    color: var(--red-color);
+    
+}
+
+.text-darkwarning{
+    color: var(--darkred-color);
+    
+}
+
+.text-light{
+    color: #FFFFFF;
+}

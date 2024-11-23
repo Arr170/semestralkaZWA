@@ -1,0 +1,127 @@
+.set-builder-container {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10vh;
+    height: 85%;
+    width: 100%;
+}
+
+.set-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    min-height: 85%;
+    width: 45%;
+    max-width: 100% !important;
+    border-radius: 5px;
+    border: 2px solid var(--darkred-color);
+    background-color: var(--lightgrey-color);
+    padding: 5px;
+}
+
+.set-flipper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 10%;
+    /* max-width: 50% !important; */
+}
+
+.set-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 70%;
+}
+
+.set-card-preview {
+    width: 90%;
+    height: 45%;
+    border-radius: 5px;
+    border: 2px solid var(--grey-color);
+    background-color: white;
+    margin: 2px auto 2px;
+    display: flex;
+    flex-direction: row;
+}
+
+.set-preview-text {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.preview-left-col {
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    border-right: 2px solid var(--lightgrey-color);
+
+}
+
+
+.set-textarea {
+    width: 95%;
+    height: 70%;
+    border-radius: 5px;
+    border: 2px solid var(--grey-color);
+    resize: none;
+
+
+}
+
+.set-img-input {
+    border-radius: 5px;
+    border: 2px solid var(--grey-color);
+}
+
+.set-preview-img {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 80%;
+    border-radius: 5px
+}
+
+.set-btn {
+    border-radius: 5px;
+    outline-color: var(--grey-color);
+    outline-width: 2px;
+    outline-style: solid;
+    font-size: 20px;
+    font-weight: bold;
+    width: fit-content;
+    border: none;
+    margin: 3px;
+}
+
+.set-btn:hover {
+    background-color: var(--grey-color);
+    color: var(--lightgrey-color);
+}
+
+.set-name-input-div {
+    display: flex;
+    flex-direction: row;
+    margin: 3px;
+    min-height: 10%;
+}
+
+.set-name-input {
+    border-radius: 5px;
+    border: 2px solid var(--grey-color);
+    margin: auto;
+    font-size: 20px;
+    padding: 2px;
+}
+
+.set-name-label {
+    font-size: 20px;
+    margin: auto;
+}

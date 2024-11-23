@@ -1,0 +1,12 @@
+Nazev: stranka pro tvoreni karticek pro uceni
+Cil: alternativa ankidroidu pro vlastni vyuziti
+Role:
+    - neprihlaseny uzivatel
+        . muze zobrazit verejne sady karticek
+    - prihlaseny uzivatel
+        . muze tvorit a mazat vlastni sady karticek
+        . muze zobrazit vlastni sadu a verejne sady
+    - admin
+        . muze mazat uzivatele
+        . muze mazat a zobrazovat kterekoli sady 
+        . muze tvorit vlastni sady 

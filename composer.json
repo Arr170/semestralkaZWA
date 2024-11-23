@@ -1,0 +1,15 @@
+{
+    "name": "arsenij/semestralka",
+    "autoload": {
+        "psr-4": {
+            "Arsenij\\Semestralka\\": "/public"
+        }
+    },
+    "authors": [
+        {
+            "name": "Arsenij",
+            "email": "kuprin.ars@gmail.com"
+        }
+    ],
+    "require": {}
+}

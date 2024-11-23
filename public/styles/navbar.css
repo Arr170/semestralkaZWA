@@ -1,0 +1,35 @@
+@import url("colors.css");
+
+
+.page-navbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 70px;
+    width: 100vw;
+    z-index: 1000;
+    word-spacing: 150%;
+    line-height: 3rem;
+    border: 2px solid var(--grey-color);
+}
+
+.navbar-name {
+    color: var(--grey-color);
+    text-decoration: none;
+    font-size: 4rem;
+}
+
+.navbar-item {
+    color: var(--grey-color);
+    text-decoration: none;
+    font-size: 2rem;
+    margin-right: 5px;
+    word-spacing: 200%;
+    padding-left: 11px;
+    border-left: 1px solid var(--grey-color);
+    height: 100%;
+}
+
+.navbar-item:hover {
+    filter: brightness(50%);
+}

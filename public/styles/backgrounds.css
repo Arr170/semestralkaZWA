@@ -1,0 +1,30 @@
+@import url("colors.css");
+
+.bg-dark{
+    background-color: var(--black-color);
+}
+
+.bg-primary{
+    background-color: var(--blue-color);
+}
+
+.bg-secondary{
+    background-color: var(--grey-color);
+}
+
+.bg-warning{
+    background-color: var(--red-color);
+    
+}
+
+.bg-light{
+    background-color: #FFFFFF;
+}
+
+.bg-lightgrey{
+    background-color: var(--lightgrey-color);
+}
+
+.bg-lightgrey2{
+    background-color: var(--lightgrey2-color);
+}
