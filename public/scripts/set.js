@@ -7,22 +7,14 @@ export class Card{
         this.answer = null
         this.answer_image = null
     }
-    set_question(question_text){
-        this.question = question_text
-    }
-    set_q_image(img){
-        this.question_image = img
-    }
-    set_answer(ans){
-        this.answer = ans
-    }
-    set_a_img(img){
-        this.answer_image = img
-    }
-    post_card(){
+
+   
+    postCard(){
         // logic: send card to backend
         // then set is of created card in db
     }
+
+
 
 }
 

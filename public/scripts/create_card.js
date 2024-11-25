@@ -11,12 +11,16 @@ const flipBack = document.getElementById("flip-back")
 const addBtn = document.getElementById("add-new")
 const previewFront = document.getElementById("set-preview-question")
 const previewBack = document.getElementById("set-preview-answer")
+const previewFrontImg = document.getElementById("img-preview-front")
+const previewBackImg = document.getElementById("img-preview-back")
 
 
 let activeSet = null
 let activeCard = null
 let page = 0
 let activeSide = "front"
+
+const reader = new FileReader()
 
 export function controllerManager() {
     const cardsInSet = activeSet.cards.length
@@ -65,7 +69,25 @@ export function loadSet() {
         controllerManager()
     }
 }
+export function loadPreviewImgFront(){
+    console.log("loading img", reader.readAsDataURL(activeCard.question_image))
+    previewFrontImg.src = reader.readAsDataURL(activeCard.question_image)
 
+}
+export function loadPreviewImgBack(){
+    console.log("loading img", activeCard.answer_image)
+    previewBackImg.src = activeCard.answer_image.src
+}
+
+export function loadPreview(){
+    previewFront.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
+    previewBack.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
+    loadPreviewImgBack()
+    loadPreviewImgFront()
+    cardImg.value=''
+
+
+}
 
 export function loadCard(side) {
     if (side === "front") {
@@ -76,6 +98,7 @@ export function loadCard(side) {
     else{
         cardText.value = activeCard.answer
     }
+    loadPreview()
     controllerManager()
 }
 
@@ -147,19 +170,33 @@ function updateSetName(){
 function updateCardText(){
     
     if(activeSide === "front"){
-        activeCard.question = cardText.value.replace(/\n/g, '<br>')
-        previewFront.innerHTML = activeCard.question
+        activeCard.question = cardText.value
+        previewFront.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
     }
     else{
-        activeCard.answer = cardText.value.replace(/\n/g, '<br>')
-        previewBack.innerHTML = activeCard.question
+        activeCard.answer = cardText.value
+        previewBack.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     }
     console.log("text value in card updated", activeCard)
 
 }
 
+function updateCardImg(){
+    if(activeSide === "front"){
+        activeCard.question_image = cardImg.files[0]
+        console.log(activeCard.question_image)
+        loadPreviewImgFront()
+    }
+    else{
+        activeCard.answer_image = cardImg.files[0]
+        loadPreviewImgBack()
+    }
+    console.log("image value in card updated", activeCard, cardImg.files[0])
+}
+
 setName.addEventListener("focusout", updateSetName)
 cardText.addEventListener("focusout", updateCardText)
+cardImg.addEventListener("change", updateCardImg)
 flipFront.addEventListener("click", flipToFront)
 flipBack.addEventListener("click", flipToBack)
 ctrlLeft.addEventListener("click", prevCard)

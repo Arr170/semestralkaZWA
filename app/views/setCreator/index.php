@@ -55,7 +55,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Question</h4>
-                    <img class="set-preview-img" alt="card img" src="/public/static/placeholderImg.png" />
+                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="/public/static/placeholderImg.png" />
 
                 </div>
                 <article id="set-preview-question" class="set-preview-text">
@@ -65,7 +65,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Answer</h4>
-                    <img class="set-preview-img" alt="card img" src="/public/static/placeholderImg.png" />
+                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="/public/static/placeholderImg.png" />
 
                 </div>
                 <article id="set-preview-answer" class="set-preview-text">
