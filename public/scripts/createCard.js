@@ -40,11 +40,11 @@ export function controllerManager() {
         ctrlRight.removeAttribute("disabled")
     }
 
-    if(activeSide === "front"){
+    if (activeSide === "front") {
         flipFront.setAttribute("disabled", true)
         flipBack.removeAttribute("disabled")
     }
-    else{
+    else {
         flipFront.removeAttribute("disabled")
         flipBack.setAttribute("disabled", true)
     }
@@ -69,22 +69,53 @@ export function loadSet() {
         controllerManager()
     }
 }
-export function loadPreviewImgFront(){
-    console.log("loading img", reader.readAsDataURL(activeCard.question_image))
-    previewFrontImg.src = reader.readAsDataURL(activeCard.question_image)
+export function loadPreviewImgFront() {
+    const img = activeCard.question_image
+
+    if (img) {
+        reader.addEventListener(
+            "load",
+            () => {
+              // convert image file to base64 string
+              previewFrontImg.src = reader.result;
+            },
+            {one: true}
+          );
+        reader.readAsDataURL(img);
+    }
+    else{
+        previewFrontImg.src = "/public/static/question.png"
+    }
+
 
 }
-export function loadPreviewImgBack(){
-    console.log("loading img", activeCard.answer_image)
-    previewBackImg.src = activeCard.answer_image.src
+
+export function loadPreviewImgBack() {
+    const img = activeCard.answer_image
+
+    if (img) {
+        reader.addEventListener(
+            "load",
+            () => {
+              // convert image file to base64 string
+              previewBackImg.src = reader.result;
+            },
+            {one: true}
+          );
+        reader.readAsDataURL(img);
+    }
+    else{
+        previewBackImg.src = "/public/static/answer.png"
+    }
+
 }
 
-export function loadPreview(){
+export function loadPreview() {
     previewFront.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
     previewBack.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     loadPreviewImgBack()
     loadPreviewImgFront()
-    cardImg.value=''
+    cardImg.value = ''
 
 
 }
@@ -95,7 +126,7 @@ export function loadCard(side) {
         cardText.value = activeCard.question
         //add loading of img
     }
-    else{
+    else {
         cardText.value = activeCard.answer
     }
     loadPreview()
@@ -104,16 +135,16 @@ export function loadCard(side) {
 
 
 
-export function preventCardDelete(){
-    if(activeSet.cards.includes(activeCard)){
+export function preventCardDelete() {
+    if (activeSet.cards.includes(activeCard)) {
         console.log("card is already saved")
     }
-    else{
+    else {
         activeSet.cards.push(activeCard)
     }
 }
 
-export function addNewCard(){
+export function addNewCard() {
     preventCardDelete()
     activeCard = new Card()
     page = activeSet.cards.length
@@ -154,26 +185,26 @@ export function flipToFront() {
     flipBack.removeAttribute("disabled")
 }
 
-export function flipToBack(){
+export function flipToBack() {
     loadCard("back")
     activeSide = "back"
     flipFront.removeAttribute("disabled")
     flipBack.setAttribute("disabled", true)
 }
 
-function updateSetName(){
+function updateSetName() {
     activeSet.set_name(setName.value)
     console.log("new set name: ", activeSet.name)
     console.log(activeSet)
 }
 
-function updateCardText(){
-    
-    if(activeSide === "front"){
+function updateCardText() {
+
+    if (activeSide === "front") {
         activeCard.question = cardText.value
         previewFront.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
     }
-    else{
+    else {
         activeCard.answer = cardText.value
         previewBack.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     }
@@ -181,13 +212,13 @@ function updateCardText(){
 
 }
 
-function updateCardImg(){
-    if(activeSide === "front"){
+function updateCardImg() {
+    if (activeSide === "front") {
         activeCard.question_image = cardImg.files[0]
         console.log(activeCard.question_image)
         loadPreviewImgFront()
     }
-    else{
+    else {
         activeCard.answer_image = cardImg.files[0]
         loadPreviewImgBack()
     }
