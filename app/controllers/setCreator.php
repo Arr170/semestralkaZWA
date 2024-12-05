@@ -10,8 +10,13 @@ class SetCreator extends Controller{
        $this->view("setCreator/index", $set);
     }
 
-    public function create(){
-
+    public function post(){
+        $input_str = file_get_contents("php://input");
+        $set = json_decode($input_str,true);
+        $cards = $set["cards"];
+        foreach($cards as $card){
+            print_r((array)$card);
+        }
     }
 
     public function delete(){
@@ -23,5 +28,9 @@ class SetCreator extends Controller{
     }
 
     public function changePropeties($id = null){
+    }
+
+    public function sets( $id = null){
+
     }
 }

@@ -12,59 +12,8 @@
 
 <body class="bg-light">
 
-    <div class="modal" name="login-modal" id="login-modal">
+    <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
 
-        <div class="modal-content">
-
-            <form class="bg-lightgrey">
-                <div class="inputdiv">
-                    <label class="form-label" for="email-input">E-mail:</label>
-                    <input class="form-input" t ype="email" id="email-input" name="email-input" required />
-                </div>
-                <div class="inputdiv">
-                    <label class="form-label" for="pass-input">Password:</label>
-                    <input class="form-input" t ype="password" id="pass-input" name="pass-input" required />
-                </div>
-                <div class="inputdiv">
-                    <button type="submit" class="form-btn bg-lightgrey2 text-secondary">Submit</button>
-                </div>
-                <p>Don't have account yet? <a onclick="showSignup()" class="link-active">sign up</a></p>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" name="signup-modal" id="signup-modal">
-
-        <div class="modal-content">
-
-            <form class="bg-lightgrey" onsubmit="checkPassword(event)">
-                <div class="inputdiv">
-                    <label class="form-label" for="email-input">E-mail:</label>
-                    <input class="form-input" type="email" id="sign-email-input" name="email-input" required />
-                </div>
-                <div class="inputdiv">
-                    <label class="form-label" for="pass-input">Password:</label>
-                    <input class="form-input" type="password" id="sign-pass-input" name="pass-input" pattern=".{8,}" required />
-                </div>
-                <div class="inputdiv">
-                    <label class="form-label" for="rep-pass-input">Repeat password:</label>
-                    <input class="form-input" type="password" id="sign-rep-pass-input" pattern=".{8,}" required />
-                </div>
-                <span id="signup-warning" class="warning-sign"></span>
-                <div class="inputdiv">
-                    <button type="submit" class="form-btn bg-lightgrey2 text-secondary">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <nav class="page-navbar bg-lightgrey text-secondary">
-        <a href="./index.html" class="navbar-name">
-            TEst
-        </a>
-        <a href="./profile.html" class="navbar-item">profile</a>
-        <a onclick="showLogin()" class="navbar-item">login</a>
-    </nav>
 
     <div class="page-body profile-container">
         <div class=""><!--my cards holder-->
@@ -72,7 +21,7 @@
             <div class="grid-box center">
                 <div class="card bg-warning">
                     <div class="card-content">
-                        <a href="/setCreator/index">
+                        <a href="./setCreator/index">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
                                 viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

@@ -3,21 +3,16 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/public/styles/style.css">
-    <script src="/public/scripts/createCard.js" type="module" defer></script>
+    <link rel="stylesheet" href="../public/styles/style.css">
+    <script src="../public/scripts/createCard.js" type="module" defer></script>
     <title>
         Creating card
     </title>
 </head>
 
 <body>
-    <nav class="page-navbar bg-lightgrey text-secondary">
-        <a href="./index.html" class="navbar-name">
-            TEst
-        </a>
-        <a href="./profile.html" class="navbar-item">profile</a>
-        <a onclick="showLogin()" class="navbar-item">login</a>
-    </nav>
+    <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
+
     <div class="set-builder-container">
         <div id="set-container" class="set-container center">
             <div class="set-name-input-div center">
@@ -40,7 +35,7 @@
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg>
                 </button>
-                <button class="set-btn" id="add-new">add</button>
+                <button class="set-btn" id="add-new">Add</button>
                 <button class="set-btn" id="go-forward">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor"
                         viewBox="0 0 15 15">
@@ -48,6 +43,9 @@
                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                     </svg>
                 </button>
+            </div>
+            <div class="center">
+                <button id="submit-btn" class="set-btn">Submit</button>
             </div>
         </div>
         <div class="set-container center" id="set-preview-container">

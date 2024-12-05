@@ -13,6 +13,18 @@ const previewFront = document.getElementById("set-preview-question")
 const previewBack = document.getElementById("set-preview-answer")
 const previewFrontImg = document.getElementById("img-preview-front")
 const previewBackImg = document.getElementById("img-preview-back")
+const submitBtn = document.getElementById("submit-btn")
+
+const html = new XMLHttpRequest()
+
+html.onload = () =>{
+
+}
+
+html.onerror = () => {
+
+}
+
 
 
 let activeSet = null
@@ -71,20 +83,30 @@ export function loadSet() {
 }
 export function loadPreviewImgFront() {
     const img = activeCard.question_image
+    const imgUrl = activeCard.question_image_url
+    //console.log("img url front", imgUrl)
+
+    if(imgUrl){
+        previewFrontImg.src = imgUrl
+        return
+    }
 
     if (img) {
         reader.addEventListener(
             "load",
-            () => {
+            (activeCard) => {
               // convert image file to base64 string
-              previewFrontImg.src = reader.result;
+              //console.log("front img loaded")
+              activeCard.question_image_url = reader.result
+              previewFrontImg.src = reader.result
+              //console.log(reader.result)
             },
-            {one: true}
-          );
-        reader.readAsDataURL(img);
+            {once: true}
+          )
+        reader.readAsDataURL(img)
     }
     else{
-        previewFrontImg.src = "/public/static/question.png"
+        previewFrontImg.src = "../public/static/question.png"
     }
 
 
@@ -92,20 +114,30 @@ export function loadPreviewImgFront() {
 
 export function loadPreviewImgBack() {
     const img = activeCard.answer_image
+    const imgUrl = activeCard.answer_image_url
+    console.log("img url back", imgUrl)
+
+    if(imgUrl){
+        previewBackImg.src = imgUrl
+        return
+    }
 
     if (img) {
         reader.addEventListener(
             "load",
             () => {
+                console.log("back img loaded")
               // convert image file to base64 string
-              previewBackImg.src = reader.result;
+              activeCard.answer_image_url = reader.result
+              previewBackImg.src = reader.result
+              console.log(reader.result)
             },
-            {one: true}
-          );
-        reader.readAsDataURL(img);
+            {once: true}
+          )
+        reader.readAsDataURL(img)
     }
     else{
-        previewBackImg.src = "/public/static/answer.png"
+        previewBackImg.src = "../public/static/answer.png"
     }
 
 }
@@ -129,7 +161,6 @@ export function loadCard(side) {
     else {
         cardText.value = activeCard.answer
     }
-    loadPreview()
     controllerManager()
 }
 
@@ -137,7 +168,7 @@ export function loadCard(side) {
 
 export function preventCardDelete() {
     if (activeSet.cards.includes(activeCard)) {
-        console.log("card is already saved")
+        //console.log("card is already saved")
     }
     else {
         activeSet.cards.push(activeCard)
@@ -148,8 +179,9 @@ export function addNewCard() {
     preventCardDelete()
     activeCard = new Card()
     page = activeSet.cards.length
-    console.log("now page is ", page)
+    //console.log("now page is ", page)
     loadCard("front")
+    loadPreview()
 }
 
 
@@ -160,6 +192,7 @@ export function prevCard() {
     page -= 1
     activeCard = activeSet.cards[page]
     loadCard("front")
+    loadPreview()
     controllerManager()
 }
 
@@ -172,6 +205,7 @@ export function nextCard() {
     page += 1
     activeCard = activeSet.cards[page]
     loadCard("front")
+    loadPreview()
     controllerManager()
 }
 
@@ -194,8 +228,8 @@ export function flipToBack() {
 
 function updateSetName() {
     activeSet.set_name(setName.value)
-    console.log("new set name: ", activeSet.name)
-    console.log(activeSet)
+    //console.log("new set name: ", activeSet.name)
+    //console.log(activeSet)
 }
 
 function updateCardText() {
@@ -208,7 +242,7 @@ function updateCardText() {
         activeCard.answer = cardText.value
         previewBack.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     }
-    console.log("text value in card updated", activeCard)
+    //console.log("text value in card updated", activeCard)
 
 }
 
@@ -222,7 +256,19 @@ function updateCardImg() {
         activeCard.answer_image = cardImg.files[0]
         loadPreviewImgBack()
     }
-    console.log("image value in card updated", activeCard, cardImg.files[0])
+    //console.log("image value in card updated", activeCard, cardImg.files[0])
+}
+
+function uploadSet(){
+    preventCardDelete()
+    const toUpload = JSON.stringify(activeSet)
+    html.open("POST", "/setCreator/post")
+
+    
+
+    html.setRequestHeader("Content-Type", "application/json")
+    html.send(toUpload)
+    console.log(toUpload)
 }
 
 setName.addEventListener("focusout", updateSetName)
@@ -233,7 +279,7 @@ flipBack.addEventListener("click", flipToBack)
 ctrlLeft.addEventListener("click", prevCard)
 ctrlRight.addEventListener("click", nextCard)
 addBtn.addEventListener("click", addNewCard)
-
+submitBtn.addEventListener("click", uploadSet);
 
 
 addEventListener("DOMContentLoaded", () => {

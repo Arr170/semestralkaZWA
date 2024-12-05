@@ -18,7 +18,7 @@ class App
         // Parse URL
         $uri = $_SERVER['REQUEST_URI'];
         $request = parse_url($uri, PHP_URL_PATH);
-
+        $request = str_replace("/~kupriars", "", $request);
         $params = array_filter(explode('/', trim($request, '/')));
 
         $controllerName = $params[0] ?? 'home';

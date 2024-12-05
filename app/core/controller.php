@@ -13,3 +13,11 @@ class Controller{
         require_once __DIR__ .'/../views/' . $view . '.php';
     }
 }
+
+function log_($message)
+{
+    $message = date("H:i:s") . " - $message - ".PHP_EOL;
+    print($message);
+    flush();
+    ob_flush();
+}
