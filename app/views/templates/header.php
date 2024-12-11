@@ -5,15 +5,16 @@ echo ('
 
         <div class="modal-content">
 
-            <form class="bg-lightgrey">
+            <form class="bg-lightgrey" id="login-form">
                 <div class="inputdiv">
                     <label class="form-label" for="email-input">E-mail:</label>
-                    <input class="form-input" t ype="email" id="email-input" name="email-input" required/>
+                    <input class="form-input" type="email" id="email-input" name="email" required/>
                 </div>
                 <div class="inputdiv">
                     <label class="form-label" for="pass-input">Password:</label>
-                    <input class="form-input" t ype="password" id="pass-input" name="pass-input" required/>
+                    <input class="form-input" type="password" id="pass-input" name="password" required/>
                 </div>
+                <span id="login-warning" class="warning-sign"></span>
                 <div class="inputdiv">
                     <button type="submit" class="form-btn bg-lightgrey2 text-secondary">Submit</button>
                 </div>
@@ -26,14 +27,18 @@ echo ('
 
         <div class="modal-content">
 
-            <form class="bg-lightgrey" onsubmit="checkPassword(event)">
+            <form class="bg-lightgrey" id="signup-form">
                 <div class="inputdiv">
-                    <label class="form-label" for="email-input">E-mail:</label>
-                    <input class="form-input" type="email" id="sign-email-input" name="email-input" required/>
+                    <label class="form-label" for="sign-email-input">E-mail:</label>
+                    <input class="form-input" type="email" id="sign-email-input" name="email" required/>
+                </div>
+                 <div class="inputdiv">
+                    <label class="form-label" for="username">Username:</label>
+                    <input class="form-input" type="text" id="sign-username-input" name="username" required/>
                 </div>
                 <div class="inputdiv">
                     <label class="form-label" for="pass-input">Password:</label>
-                    <input class="form-input" type="password" id="sign-pass-input" name="pass-input" pattern=".{8,}" required/>
+                    <input class="form-input" type="password" id="sign-pass-input" name="password" pattern=".{8,}" required/>
                 </div>
                 <div class="inputdiv">
                     <label class="form-label" for="rep-pass-input">Repeat password:</label>
