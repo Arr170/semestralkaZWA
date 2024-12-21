@@ -33,3 +33,8 @@
 .navbar-item:hover {
     filter: brightness(50%);
 }
+
+.logout-btn {
+    cursor: pointer; /* Indicate it's clickable */
+    pointer-events: auto; /* Ensure it can receive clicks */
+}

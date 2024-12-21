@@ -18,7 +18,7 @@ export class CardsSet{
     constructor(){
         this.id = null
         this.owner_id = null
-        this.public = null
+        this.is_private = null
         this.cards = []
         this.name = null
     }

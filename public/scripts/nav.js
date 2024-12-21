@@ -3,10 +3,13 @@ const signupModal = document.getElementById("signup-modal")
 const loginBtn = document.getElementById("login-btn")
 const signupBtn = document.getElementById("signup-btn")
 const loginForm = document.getElementById("login-form")
+const logoutBtn = document.getElementById("logout-btn")
 const signupForm = document.getElementById("signup-form")
 const signupWarning = document.getElementById("signup-warning")
 const loginWarning = document.getElementById("login-warning")
 
+
+console.log(logoutBtn)
 
 window.onclick = function (event) {
     if (event.target == loginModal || event.target == signupModal) {
@@ -56,6 +59,7 @@ async function handleLogin(event) {
         const result = await response.json()
         if (response.ok) {
             closeModals()
+            location.reload()
         } else {
             loginWarning.style.display = "block"
             loginWarning.innerHTML = result.message;
@@ -79,6 +83,7 @@ async function handleSignup(event) {
         const result = await response.json()
         if (response.ok) {
             closeModals()
+            location.reload()
         } else {
             signupWarning.style.display = "block"
             signupWarning.innerHTML = result.message;
@@ -91,7 +96,31 @@ async function handleSignup(event) {
 
 }
 
-loginBtn.addEventListener("click", () => showLogin())
+async function handleLogout() {
+    console.log("logging out")
+    try {
+        const response = await fetch("/user/logout", {
+            method: 'POST'
+        })
+        if (response.ok) {
+            console.log(response)
+            document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            location.reload()
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+
 signupBtn.addEventListener("click", () => showSignup())
 loginForm.addEventListener("submit", (event) => handleLogin(event))
+
 signupForm.addEventListener("submit", (event) => handleSignup(event))
+if(logoutBtn){
+    logoutBtn.addEventListener("click", () => handleLogout())
+}
+if (loginBtn) {
+    loginBtn.addEventListener("click", () => showLogin())
+}

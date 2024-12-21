@@ -27,6 +27,9 @@
                 <textarea id="set-card-text" class="set-textarea"></textarea>
                 <input id="set-card-img" type="file" class="set-img-input" accept="image/png, image/jpeg">
             </div>
+            <span class="center" id="counter">
+                0/0
+            </span>
             <div id="controler" class="set-controller center">
                 <button class="set-btn" id="go-back">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor"
@@ -46,6 +49,7 @@
             </div>
             <div class="center">
                 <button id="submit-btn" class="set-btn">Submit</button>
+                <button id="delete-card-btn" class="set-btn">Delete card</button>
             </div>
         </div>
         <div class="set-container center" id="set-preview-container">
@@ -53,7 +57,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Question</h4>
-                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="/public/static/question.png" />
+                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="../public/static/question.png" />
 
                 </div>
                 <article id="set-preview-question" class="set-preview-text">
@@ -63,7 +67,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Answer</h4>
-                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="/public/static/answer.png" />
+                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="../public/static/answer.png" />
 
                 </div>
                 <article id="set-preview-answer" class="set-preview-text">

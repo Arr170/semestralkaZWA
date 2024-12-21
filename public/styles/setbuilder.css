@@ -84,7 +84,7 @@
 .set-container {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    /* align-items: stretch; */
     max-width: 100% !important;
     border-radius: 5px;
     border: 2px solid var(--darkred-color);
@@ -106,7 +106,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 70%;
+    min-height: 50%;
     margin: 1px;
 }
 
