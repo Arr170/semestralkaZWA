@@ -29,14 +29,19 @@
                     2
                 </div>
             </div>
-            <div class="card bg-warning">3</div>
-            <div class="card bg-warning">4</div>
-            <div class="card bg-warning">5</div>
-            <div class="card bg-warning">6</div>
-            <div class="card bg-warning">7</div>
-            <div class="card bg-warning">8</div>
-            <div class="card bg-warning">9</div>
-            <div class="card bg-warning">10</div>
+            <?php 
+            foreach($data as $set){
+                echo '
+                <div class="card bg-warning">
+                    <a href="./setCreator/index/'.htmlspecialchars($set["id"]).'">
+                        <div class="card-content">
+                        '.htmlspecialchars($set["name"]).'
+                        </div>
+                    </a>
+                </div>
+                ';
+            }
+            ?>
             <div class="card bg-warning">
                 <div class="card-content">
                     <a href="./setCreator/index">

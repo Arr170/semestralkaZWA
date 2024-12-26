@@ -6,11 +6,16 @@
 @import url("signing.css");
 @import url("modal.css");
 @import url("setbuilder.css");
+@import url("table.css");
 
 
 body {
     padding: 0px;
     height: 100vh;
+}
+
+.hidden {
+    display: none;
 }
 
 

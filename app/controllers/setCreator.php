@@ -3,6 +3,8 @@
 require_once __DIR__ . "/../core/controller.php";
 require_once __DIR__ . "/../models/set.php";
 require_once __DIR__ . "/../models/card.php";
+require_once __DIR__ . "/../models/user.php";
+
 
 class SetCreator extends Controller
 {
@@ -29,9 +31,11 @@ class SetCreator extends Controller
                 exit;
             }
 
-            $newSet = new Set(name: $postedSet["name"], 
-                                author_id: $_COOKIE["user_id"],
-                                private: $postedSet["is_private"]);
+            $newSet = new Set(
+                name: $postedSet["name"],
+                author_id: $_COOKIE["user_id"],
+                private: $postedSet["is_private"]
+            );
             $newSet->add();
 
             foreach ($postedCards as $card) {
@@ -45,8 +49,7 @@ class SetCreator extends Controller
             }
 
             echo json_encode($newSet);
-        }
-        else{
+        } else {
             http_response_code(401);
             echo "User needs to be authorized to post sets!";
         }
@@ -56,28 +59,61 @@ class SetCreator extends Controller
     {
         $getSet = new Set();
         $getSet->find_by_id($id);
-        
-        if($getSet->private == true){
+
+        if ($getSet->private == true) {
             $userId = $_COOKIE["user_id"];
-            if($getSet->author_id == $userId){
+            if ($getSet->author_id == $userId) {
                 echo json_encode($getSet);
                 exit;
-            }
-            else{
+            } else {
                 http_response_code(401);
                 echo "You don't own this set!";
                 exit;
             }
-        }
-        else{
+        } else {
             echo json_encode($getSet);
             exit;
         }
-        
     }
-    public function delete() {}
+    public function delete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+            $user = new UserModel();
+            $set = new Set();
+            $set->find_by_id($id);
+            if (isset($_COOKIE["user_id"])) {
+                $user->getById($_COOKIE["user_id"]);
+            }
+            if ($user->isAdmin() || $set->isOwnedBy($user->id)) {
+                $set->remove();
+                echo "deleted";
+                exit;
+            }
+            http_response_code(401);
+            exit;
+        }
+        else{
+            echo "bad";
+            exit;
+        }
+    }
 
-    public function update($id = null) {}
+    public function changeVisibility($id)
+    {
+        $user = new UserModel();
+        $set = new Set();
+        $set->find_by_id($id);
+        if (isset($_COOKIE["user_id"])) {
+            $user->getById($_COOKIE["user_id"]);
+        }
+        if ($user->isAdmin() || $set->isOwnedBy($user->id)) {
+            $set->private = $set->private == "true" ? "false" : "true";
+            $set->update();
+            exit;
+        }
+        http_response_code(401);
+        exit;
+    }
 
     public function changePropeties($id = null) {}
 

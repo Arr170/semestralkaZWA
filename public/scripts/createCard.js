@@ -18,13 +18,7 @@ const counterSpan = document.getElementById("counter")
 
 const html = new XMLHttpRequest()
 
-html.onload = () => {
 
-}
-
-html.onerror = () => {
-
-}
 
 
 
@@ -66,12 +60,38 @@ export function controllerManager() {
 }
 
 export function loadSet() {
-    const setId = params.get('set_id')
+    const url = window.location.href
+    const parts = url.split("/")
+    const urlLen = parts.length
+    const indexPos = parts.indexOf("index")
+    const setId = parts[indexPos + 1]
+
     console.log("loading set", setId)
 
     if (setId) {
         console.log("set id:", setId)
-        //load set
+        html.onload = () => {
+            try {
+                const jsonData = JSON.parse(html.response)
+                parseResponse(jsonData)
+                setName.value = jsonData.name
+            } catch (error) {
+                console.error("Failed to parse JSON:", error)
+            }
+
+        }
+
+        html.onerror = () => {
+            console.log("some kind of error while uploading set")
+        }
+
+        html.open("GET", "/setCreator/get/" + setId)
+
+
+
+        html.setRequestHeader("Content-Type", "application/json")
+        html.send()
+        
     }
     else {
         console.log("no set id in params")
@@ -111,7 +131,7 @@ export function loadPreviewImgFront() {
         reader.readAsDataURL(img)
     }
     else {
-        previewFrontImg.src = "../public/static/question.png"
+        previewFrontImg.src = "/../public/static/question.png"
     }
 
 
@@ -142,7 +162,7 @@ export function loadPreviewImgBack() {
         reader.readAsDataURL(img)
     }
     else {
-        previewBackImg.src = "../public/static/answer.png"
+        previewBackImg.src = "/../public/static/answer.png"
     }
 
 }
@@ -184,7 +204,7 @@ export function addNewCard() {
     preventCardDelete()
     activeCard = new Card()
     page = activeSet.cards.length
-    if(!activeSet.cards.includes(activeCard)){
+    if (!activeSet.cards.includes(activeCard)) {
         activeSet.cards.push(activeCard)
     }
     //console.log("now page is ", page)
@@ -237,7 +257,7 @@ export function flipToBack() {
 }
 
 function updateSetName() {
-    activeSet.set_name(setName.value)
+    activeSet.name = setName.value
     //console.log("new set name: ", activeSet.name)
     //console.log(activeSet)
 }
@@ -266,12 +286,26 @@ function updateCardImg() {
         activeCard.answer_image = cardImg.files[0]
         loadPreviewImgBack()
     }
-    //console.log("image value in card updated", activeCard, cardImg.files[0])
 }
 
 function uploadSet() {
     preventCardDelete()
     const toUpload = JSON.stringify(activeSet)
+
+    html.onload = () => {
+        try {
+            const jsonData = JSON.parse(html.response)
+            setUrlId(jsonData.id)
+        } catch (error) {
+            console.error("Failed to parse JSON:", error)
+        }
+
+    }
+
+    html.onerror = () => {
+        console.log("some kind of error while uploading set")
+    }
+
     html.open("POST", "/setCreator/post")
 
 
@@ -283,7 +317,53 @@ function uploadSet() {
 }
 
 function updateCounter(cardsInSet) {
-    counterSpan.textContent = (page+1) + '/' + cardsInSet
+    counterSpan.textContent = (page + 1) + '/' + cardsInSet
+}
+
+function setUrlId(id) {
+    const url = window.location.href
+    const parts = url.split("/")
+    const urlLen = parts.length
+    const indexPos = parts.indexOf("index")
+    const setId = parts[indexPos + 1]
+    let newUrl = ""
+    let i = 0
+    for (i; i <= indexPos; i++) {
+        newUrl = newUrl + parts[i] + "/"
+    }
+    newUrl = newUrl + id
+    window.location.href = newUrl
+}
+
+function parseResponse(response) {
+    let set = new CardsSet()
+    set.id = response.id
+    set.author_id = response.author_id
+    set.is_private = response.is_private
+    set.name = response.name
+    response.cards.forEach(c => {
+        console.log("adding card" + c.id)
+        let card = new Card()
+        card.id = c.id
+        card.set_id = c.set_id
+        card.question = c.question
+        card.question_image_url = c.question_image_url
+        card.answer = c.answer
+        card.answer_image_url = c.answer_image_url
+        set.cards.push(card)
+    })
+    activeSet = set
+    activeCard = set.cards[0]
+    console.log("in parser:")
+    console.log(set)
+    console.log(activeSet, activeCard)
+    
+    page = 0
+    loadCard("front")
+    loadPreview()
+    controllerManager()
+
+
 }
 
 setName.addEventListener("focusout", updateSetName)

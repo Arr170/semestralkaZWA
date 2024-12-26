@@ -1,16 +1,39 @@
 <?php
 
-require __DIR__ . "/../core/controller.php";
-require __DIR__ . "/../models/user.php";
+require_once __DIR__ . "/../core/controller.php";
+require_once __DIR__ . "/../models/user.php";
+require_once __DIR__ . "/../models/set.php";
+require_once __DIR__ . "/../models/card.php";
 
 class User extends Controller
 {
 
     public function index()
     {
-        $this->view("user/index", null);
+        if (isset($_COOKIE["user_id"])) {
+            $setManager = new Set();
+            $foundSets = $setManager->getSetsByOwner($_COOKIE["user_id"]);
+            $this->view("user/index", $foundSets);
+        }
     }
 
+    public function admin()
+    {
+        if (isset($_COOKIE["user_id"]) && isset($_COOKIE["user_role"]) && $_COOKIE["user_role"] == "admin") {
+            $setManager = new Set();
+            $userManager = new UserModel();
+
+            $foundSets =  $setManager->getAllSets();
+            $foundUsers = $userManager->getAll();
+            $data = ["sets" => $foundSets, "users" => $foundUsers];
+
+            $this->view("user/admin", $data);
+        } else {
+            http_response_code(401);
+            echo "bad";
+            exit;
+        }
+    }
     public function login()
     {
         session_start();
@@ -20,10 +43,14 @@ class User extends Controller
             $email = $_POST["email"];
             $password = $_POST["password"];
 
+            //echo $password;
+
             $user = new UserModel();
-            $user->get_by_email($email);
+            $user->getByEmail($email);
             if (password_verify($password,  $user->password)) {
                 setcookie("user_id", $user->id, time() + 3600 * 24, "/");
+                setcookie("user_role", $user->role, time() + 3600 * 24, "/");
+
                 $data = [
                     "status" => "ok",
                     "message" => "Logged in!",
@@ -48,8 +75,8 @@ class User extends Controller
             echo "bad";
         } else {
             setcookie("user_id", "", time() - 3600);
+            setcookie("user_role",  "", time() - 3600);
             // session_start();
-            // setcookie(session_name(), '', 100);
             // session_unset();
             // session_destroy();
             // $_SESSION = array();
@@ -71,8 +98,10 @@ class User extends Controller
             $email = $_POST["email"];
             $password = $_POST["password"];
 
+
+
             $user = new UserModel();
-            $user->get_by_email($email);
+            $user->getByEmail($email);
             if ($user->id) {
                 $data = (object)[];
                 $data->status =  "bad";
@@ -87,6 +116,7 @@ class User extends Controller
                 $user = new UserModel($username,  $email, $password);
                 $user->add();
                 setcookie("user_id", $user->id, time() + 3600 * 24, "/");
+                setcookie("user_role", $user->role, time() + 3600 * 24, "/");
                 $data = [
                     "status" => "ok",
                     "message" => "User created"
@@ -96,6 +126,31 @@ class User extends Controller
 
                 echo json_encode($data);
             }
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+            $user = new UserModel();
+            if (isset($_COOKIE["user_id"])) {
+                $user->getById($_COOKIE["user_id"]);
+            }
+            if ($user->isAdmin()) {
+                $userToRemove = new UserModel();
+                $userToRemove->getById($id);
+                $userToRemove->remove();
+                echo "removed";
+                exit;
+            } else {
+                http_response_code(401);
+                echo "not an admin";
+                echo json_encode($user);
+                exit;
+            }
+        } else {
+            echo "bad";
+            exit;
         }
     }
 }

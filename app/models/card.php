@@ -52,11 +52,11 @@ class Card{
         $cards_arr = [];
 
         $query->execute();
-        $result = $query->fetch((PDO::FETCH_ASSOC));
+        $result = $query->fetchAll((PDO::FETCH_ASSOC));
         if($result){
             foreach($result as $r){
                 $new_card = new Card();
-                $new_card->find_by_id($result["id"]);
+                $new_card->find_by_id($r["id"]);
                 array_push($cards_arr, $new_card);
             }
             

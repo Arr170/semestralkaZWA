@@ -1,6 +1,6 @@
 <?php
 $nav = '
-<script src="../public/scripts/nav.js" type="module" defer></script>
+<script src="/../public/scripts/nav.js" type="module" defer></script>
 <div class="modal" name="login-modal" id="login-modal">
 
     <div class="modal-content">
@@ -51,21 +51,26 @@ $nav = '
         </form>
     </div>
 </div>
-'; 
+';
 
-if(isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != null){
-    $nav = $nav.'
+if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != null) {
+    $nav = $nav . '
 <nav class="page-navbar bg-lightgrey text-secondary">
     <a href="../" class="navbar-name">
         Test
     </a>
     <a href="../user" class="navbar-item">Profile</a>
     <a id="logout-btn" class="navbar-item">Logout</a>
-</nav>
-    '; 
-}
-else{
-    $nav = $nav.'
+    ';
+
+    if (isset($_COOKIE["user_role"]) && $_COOKIE["user_role"] == "admin") {
+        $nav = $nav . '
+        <a id="admin-btn" href="../user/admin" class="navbar-item">Admin Dashboard</a>
+    ';
+    }
+    $nav = $nav . '</nav>';
+} else {
+    $nav = $nav . '
 <nav class="page-navbar bg-lightgrey text-secondary">
     <a href="../" class="navbar-name">
         Test
@@ -74,5 +79,7 @@ else{
 </nav>
 ';
 }
+
+
 
 echo $nav;

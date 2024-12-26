@@ -10,19 +10,25 @@ class Set{
     public $private;
     public $author_id;
     public $cards = [];
+    
 
     private $conn;
     public function __construct($id = null, $name = null, $private = null, $author_id=null){
         $this->id = $id;
         $this->name = $name;
-        $this->private = $private;
+        $this->private = $private ? $private : 'true';
         $this->author_id = $author_id;
 
         $db = new Database();
-        $this->conn = $db->connect();
+        $this->conn = $db->connect();  
     
     }
 
+    /**
+     * searches for set by its id and sets all values of class
+     * @param mixed $id
+     * @return void
+     */
     public function find_by_id($id){
         $query = $this->conn->prepare("SELECT * FROM card_sets WHERE id = '$id'");
         $query->execute();
@@ -40,6 +46,11 @@ class Set{
         }
     }
 
+    /**
+     * searches for set by its name and sets all values of class
+     * @param mixed $name
+     * @return void
+     */
     public function find_by_name($name){
         // find the set
         $query = $this->conn->prepare("SELECT * FROM card_sets WHERE name = '$name';");
@@ -59,6 +70,11 @@ class Set{
         
 
     }
+
+    /**
+     * adds to database record with set
+     * @return void
+     */
     public function add(){
         $this->id = uniqid();
         $query = $this->conn->prepare("INSERT INTO card_sets
@@ -67,17 +83,95 @@ class Set{
         $query->execute();
     }
 
-    public function remove($id){
+    /**
+     * removes row entry from database
+     * @return void
+     */
+    public function remove(){
         //delete all cards
         $query = $this->conn->prepare("DELETE FROM cards
-        WHERE set_id = '$id';");
+        WHERE set_id = '$this->id';");
         $query->execute();
 
         // delete set
         $query = $this->conn->prepare("DELETE FROM card_sets
-        WHERE id = '$id';");
+        WHERE id = '$this->id';");
         $query->execute();
     }
+    /**
+     * updates row entry with values of set
+     * @return void
+     */
     public function update(){
+        $query = $this->conn->prepare("UPDATE card_sets
+        SET name = '$this->name',
+            private = '$this->private'
+        WHERE id = '$this->id';");
+        $query->execute();
+    }
+
+    /** 
+     * Does not changes the class Set variable
+     * @return array with all found public sets
+     */
+    public function getAllPublicSets(){
+        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE private = 'false';");
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $foundSets = [];
+        foreach($result as $r){
+            $set = new Set();
+            $set->find_by_id($r["id"]);
+            array_push($foundSets, $set);
+        }
+        return $foundSets;
+    }
+
+    /** 
+     * Does not changes the class Set variable
+     * @param mixed $author_id
+     * @return array with all found sets by athor id
+     */
+    public function getSetsByOwner($author_id){
+        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE author_id = '$author_id';");
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $foundSets = [];
+        foreach($result as $r){
+            $set = new Set();
+            $set->find_by_id($r["id"]);
+            array_push($foundSets, $set);
+        }
+        return $foundSets;
+
+    }
+
+    /** 
+     * Does not changes the class Set variable
+     * @return array with all found sets
+     */
+    public function getAllSets(){
+        $query = $this->conn->prepare("SELECT * FROM card_sets;");
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $foundSets = [];
+        foreach($result as $r){
+            $set = new Set();
+            $set->find_by_id($r["id"]);
+            array_push($foundSets, $set);
+        }
+        return $foundSets;
+    }
+
+    /**
+     * checks if the set is owned by user with userId
+     * @param mixed $userId
+     * @return bool
+     */
+    function isOwnedBy($userId){
+        return ($this->author_id == $userId);
     }
 }

@@ -3,8 +3,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../public/styles/style.css">
-    <script src="../public/scripts/createCard.js" type="module" defer></script>
+    <link rel="stylesheet" href="/../public/styles/style.css">
+    <script src="/../public/scripts/createCard.js" type="module" defer></script>
     <title>
         Creating card
     </title>
@@ -57,7 +57,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Question</h4>
-                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="../public/static/question.png" />
+                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="/../public/static/question.png" />
 
                 </div>
                 <article id="set-preview-question" class="set-preview-text">
@@ -67,7 +67,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Answer</h4>
-                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="../public/static/answer.png" />
+                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="/../public/static/answer.png" />
 
                 </div>
                 <article id="set-preview-answer" class="set-preview-text">

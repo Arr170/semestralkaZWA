@@ -15,19 +15,13 @@ try{
 
     //$conn->exec("USE flashcards");
 
-    // admins table
-    $conn->exec("CREATE TABLE IF NOT EXISTS admins (
-        id TEXT PRIMARY KEY, 
-        name TEXT NOT NULL,
-        password TEXT NOT NULL 
-    );");
-
     // user table 
     $conn->exec("CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
         email TEXT NOT NULL,
-        password TEXT NOT NULL    
+        password TEXT NOT NULL, 
+        role TEXT   
     );");
 
     // card set table
@@ -56,7 +50,14 @@ try{
     echo "[2] tables created\n";
 
     // initial data - admin
-    $conn->exec("INSERT INTO admins (name, password) VALUES ('admin', '12345678');");
+    $adminId = uniqid();
+    // yes, very secure password
+    $adminPass = password_hash("123456789", PASSWORD_DEFAULT);
+    $query = $conn->prepare("INSERT INTO users
+    (id, name, email, password, role) VALUES
+    ('$adminId', 'admin1', 'admin@admin.admin', '$adminPass', 'admin');");
+
+    $query->execute();
 
     echo "[3] initial admin inserted\n";
 }catch(PDOException $e){
