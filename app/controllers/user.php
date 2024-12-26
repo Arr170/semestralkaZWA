@@ -13,7 +13,14 @@ class User extends Controller
         if (isset($_COOKIE["user_id"])) {
             $setManager = new Set();
             $foundSets = $setManager->getSetsByOwner($_COOKIE["user_id"]);
-            $this->view("user/index", $foundSets);
+            $user = new UserModel();
+            $user->getById($_COOKIE["user_id"]);
+            $data = [
+                "sets" => $foundSets,
+                "username" => $user->username
+            ];
+
+            $this->view("user/index", $data);
         }
     }
 

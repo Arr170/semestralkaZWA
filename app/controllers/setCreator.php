@@ -14,6 +14,26 @@ class SetCreator extends Controller
         $this->view("setCreator/index", null);
     }
 
+    public function viewer($id){
+        $user = new UserModel();
+        if(isset($_COOKIE["user_id"])){
+            $user->getById($_COOKIE["user_id"]);
+        }
+        else{
+            $user = null;
+        }
+
+        $set = new Set();
+        $set->find_by_id($id);
+
+        $data = [
+            "set"=> $set,
+            "user" => $user
+        ];
+
+        $this->view("setCreator/viewer",  $data);
+    }
+
     public function post()
     {
         if (isset($_COOKIE['user_id'])) {

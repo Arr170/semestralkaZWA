@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/../public/styles/style.css">
     <script src="/../public/scripts/createCard.js" type="module" defer></script>
     <title>
-        Creating card
+        Creating set
     </title>
 </head>
 

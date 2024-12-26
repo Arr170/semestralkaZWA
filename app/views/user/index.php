@@ -33,23 +33,11 @@
                     </div>
 
                 </div>
-                <div class="card bg-warning">
-                    <span class="card-content">
-                        <h1 class="card-icon">A</h1>
-                        <p class="card-title">algebra</p>
-
-                    </span>
-                </div>
-                <div class="card bg-warning">
-                    <div class="card-content">
-                        2
-                    </div>
-                </div>
                 <?php
-                foreach ($data as $set) {
+                foreach ($data["sets"] as $set) {
                     echo '
                     <div class="card bg-warning">
-                        <a href="./setCreator/index/' . htmlspecialchars($set->id) . '">
+                        <a href="./setCreator/viewer/' . htmlspecialchars($set->id) . '">
                             <div class="card-content">
                             ' . htmlspecialchars($set->name) . '
                             </div>
@@ -62,8 +50,18 @@
             </div>
         </div>
         <div class="center profile-stats"><!--profile info-->
-            <h1 id="profile-name">Name Surname</h1>
-            <p>Sets: <span id="sets-count">x</span></p>
+            <h1 id="profile-name">
+                <?php
+                echo $data["username"];
+                ?>
+            </h1>
+            <p>Sets:
+                <span id="sets-count">
+                <?php
+                    echo sizeof($data["sets"]);
+                ?>
+                </span>
+            </p>
             <p>likes: <span id="likes-count">y</span></p>
         </div>
 

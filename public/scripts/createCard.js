@@ -106,6 +106,7 @@ export function loadSet() {
         controllerManager()
     }
 }
+
 export function loadPreviewImgFront() {
     const img = activeCard.question_image
     const imgUrl = activeCard.question_image_url
@@ -354,9 +355,7 @@ function parseResponse(response) {
     })
     activeSet = set
     activeCard = set.cards[0]
-    console.log("in parser:")
-    console.log(set)
-    console.log(activeSet, activeCard)
+
     
     page = 0
     loadCard("front")

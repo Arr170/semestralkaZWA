@@ -105,7 +105,7 @@ async function handleLogout() {
         if (response.ok) {
             console.log(response)
             document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-            location.reload()
+            location.href = '/'
         }
     }
     catch (error) {
