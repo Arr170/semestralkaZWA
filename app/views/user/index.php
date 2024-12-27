@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
     <title>
         test
     </title>
@@ -21,7 +21,7 @@
             <div class="grid-box center">
                 <div class="card bg-warning">
                     <div class="card-content">
-                        <a href="<?php echo BASE_URL;?>/setCreator/index">
+                        <a href="<?php echo BASE_URL; ?>/setCreator/index">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
                                 viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -33,19 +33,20 @@
                     </div>
 
                 </div>
-                <?php
-                foreach ($data["sets"] as $set) {
-                    echo '
+                <?php foreach ($data["sets"] as $set): ?>
                     <div class="card bg-warning">
-                        <a href="'.BASE_URL.'/setCreator/viewer/' . htmlspecialchars($set->id) . '">
-                            <div class="card-content">
-                            ' . htmlspecialchars($set->name) . '
-                            </div>
-                        </a>
+                        <p>
+                            <a href="./setCreator/index/<?php echo $set->id; ?>">
+                                <h2>
+                                    <?php echo htmlspecialchars($set->name); ?>
+                                </h2>
+                            </a>
+                        </p>
+                        <p>
+                            Views: <?php echo $set->views; ?>
+                        </p>
                     </div>
-                ';
-                }
-                ?>
+                <?php endforeach; ?>
 
             </div>
         </div>
@@ -57,12 +58,11 @@
             </h1>
             <p>Sets:
                 <span id="sets-count">
-                <?php
+                    <?php
                     echo sizeof($data["sets"]);
-                ?>
+                    ?>
                 </span>
-            </p>`
-            <p>likes: <span id="likes-count">y</span></p>
+            </p>
         </div>
 
     </div>

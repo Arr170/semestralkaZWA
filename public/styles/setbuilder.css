@@ -18,8 +18,8 @@
      }
 
      .set-viewer-controller {
-        width: 90%;
-    }
+         width: 90%;
+     }
 
  }
 
@@ -37,14 +37,14 @@
      }
 
      .set-card-viewer {
-        max-width: 90%;
-        height: 70%;
-        flex-direction: column;
-    }
+         max-width: 90%;
+         height: 70%;
+         flex-direction: column;
+     }
 
-    .set-viewer-controller {
-        width: 90%;
-    }
+     .set-viewer-controller {
+         width: 90%;
+     }
 
  }
 
@@ -62,14 +62,14 @@
      }
 
      .set-card-viewer {
-        width: 90%;
-        height: 70%;
-        flex-direction: column;
-    }
+         width: 90%;
+         height: 70%;
+         flex-direction: column;
+     }
 
-    .set-viewer-controller {
-        width: 90%;
-    }
+     .set-viewer-controller {
+         width: 90%;
+     }
 
  }
 
@@ -87,14 +87,14 @@
      }
 
      .set-card-viewer {
-        width: 90%;
-        height: 80%;
-        flex-direction: row;
-    }
+         width: 90%;
+         height: 80%;
+         flex-direction: row;
+     }
 
-    .set-viewer-controller {
-        width: 60%;
-    }
+     .set-viewer-controller {
+         width: 60%;
+     }
 
  }
 
@@ -111,14 +111,14 @@
      }
 
      .set-card-viewer {
-        width: 90%;
-        height: 80%;
-        flex-direction: row;
-    }
+         width: 90%;
+         height: 80%;
+         flex-direction: row;
+     }
 
-    .set-viewer-controller {
-        width: 60%;
-    }
+     .set-viewer-controller {
+         width: 60%;
+     }
  }
 
  .set-builder-container {
@@ -268,7 +268,9 @@
 
  .set-name-input-div {
      display: flex;
-     flex-direction: row;
+     flex-direction: column;
+     align-items: start;
+     /* justify-content: space-evenly; */
      margin: 3px;
      min-height: 10%;
  }

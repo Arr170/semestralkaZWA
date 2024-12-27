@@ -24,6 +24,7 @@ try{
         author_id TEXT NOT NULL,
         name TEXT NOT NULL,
         private BOOLEAN NOT NULL,
+        views INTEGER,
         FOREIGN KEY (author_id) REFERENCES users(id)
 
     );");

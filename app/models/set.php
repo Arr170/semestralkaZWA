@@ -10,6 +10,7 @@ class Set{
     public $private;
     public $author_id;
     public $cards = [];
+    public $views;
     
 
     private $conn;
@@ -18,6 +19,7 @@ class Set{
         $this->name = $name;
         $this->private = $private ? $private : 'true';
         $this->author_id = $author_id;
+        $this->views = 0;
 
         $db = new Database();
         $this->conn = $db->connect();  
@@ -40,6 +42,7 @@ class Set{
             $this->name = $result["name"];
             $this->private = $result["private"];
             $this->author_id = $result["author_id"];
+            $this->views = $result["views"];
             //find cards
             $card_finder = new Card();
             $this->cards = $card_finder->find_by_owner($this->id);
@@ -63,6 +66,8 @@ class Set{
             $this->name = $result["name"];
             $this->private = $result["private"];
             $this->author_id = $result["author_id"];
+            $this->views = $result["views"];
+
             //find cards
             $card_finder = new Card();
             $this->cards = $card_finder->find_by_owner($this->id);
@@ -78,8 +83,8 @@ class Set{
     public function add(){
         $this->id = uniqid();
         $query = $this->conn->prepare("INSERT INTO card_sets
-        (id, name, private, author_id) VALUES
-        ('$this->id', '$this->name', '$this->private', '$this->author_id');");
+        (id, name, private, author_id, views) VALUES
+        ('$this->id', '$this->name', '$this->private', '$this->author_id', $this->views);");
         $query->execute();
     }
 
@@ -105,9 +110,15 @@ class Set{
     public function update(){
         $query = $this->conn->prepare("UPDATE card_sets
         SET name = '$this->name',
-            private = '$this->private'
+            private = '$this->private',
+            views = '$this->views'
         WHERE id = '$this->id';");
         $query->execute();
+    }
+
+    public function addView(){
+        $this->views += 1;
+        $this->update();
     }
 
     /** 

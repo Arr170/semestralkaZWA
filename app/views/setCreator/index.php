@@ -2,10 +2,11 @@
 
 <html>
 
-<?php echo BASE_URL;?>
+<?php echo BASE_URL; ?>
+
 <head>
-    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
-    <script src="<?php echo BASE_URL;?>/public/scripts/createCard.js" type="module" defer></script>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
+    <script src="<?php echo BASE_URL; ?>/public/scripts/createCard.js" type="module" defer></script>
     <title>
         Creating set
     </title>
@@ -17,8 +18,15 @@
     <div class="set-builder-container">
         <div id="set-container" class="set-container center">
             <div class="set-name-input-div center">
-                <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
-                <input name="set-name" id="set-name" class="set-name-input center">
+                <div >
+                    <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
+                    <input name="set-name" id="set-name" class="set-name-input center">
+                </div>
+                <div >
+                    <label for="set-private" class="set-name-label">Make private:</label>
+                    <input type="checkbox" id="set-private" class="set-name-input">
+                </div>
+
             </div>
             <div id="flipper" class="set-flipper center">
                 <button class="set-btn" id="flip-front" disabled>Front side</button>
@@ -58,7 +66,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Question</h4>
-                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="<?php echo BASE_URL;?>/public/static/question.png" />
+                    <img id="img-preview-front" class="set-preview-img" alt="card img" src="<?php echo BASE_URL; ?>/public/static/question.png" />
 
                 </div>
                 <article id="set-preview-question" class="set-preview-text">
@@ -68,7 +76,7 @@
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Answer</h4>
-                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="<?php echo BASE_URL;?>/public/static/answer.png" />
+                    <img id="img-preview-back" class="set-preview-img" alt="card img" src="<?php echo BASE_URL; ?>/public/static/answer.png" />
 
                 </div>
                 <article id="set-preview-answer" class="set-preview-text">

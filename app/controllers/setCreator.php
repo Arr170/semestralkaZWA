@@ -10,24 +10,36 @@ class SetCreator extends Controller
 {
     public function index($id = null)
     {
-
-        $this->view("setCreator/index", null);
-    }
-
-    public function viewer($id){
         $user = new UserModel();
-        if(isset($_COOKIE["user_id"])){
+        if (isset($_COOKIE["user_id"])) {
             $user->getById($_COOKIE["user_id"]);
         }
-        else{
+        if ($user->exists()) {
+
+            $this->view( "setCreator/index", null);
+
+        } else {
+            http_response_code(401);
+            echo "not authorized!";
+            exit;
+        }
+    }
+
+    public function viewer($id)
+    {
+        $user = new UserModel();
+        if (isset($_COOKIE["user_id"])) {
+            $user->getById($_COOKIE["user_id"]);
+        } else {
             $user = null;
         }
 
         $set = new Set();
         $set->find_by_id($id);
+        $set->addView();
 
         $data = [
-            "set"=> $set,
+            "set" => $set,
             "user" => $user
         ];
 
@@ -54,7 +66,7 @@ class SetCreator extends Controller
             $newSet = new Set(
                 name: $postedSet["name"],
                 author_id: $_COOKIE["user_id"],
-                private: $postedSet["is_private"]
+                private: ($postedSet["is_private"])?"true":"false"
             );
             $newSet->add();
 
@@ -111,8 +123,7 @@ class SetCreator extends Controller
             }
             http_response_code(401);
             exit;
-        }
-        else{
+        } else {
             echo "bad";
             exit;
         }

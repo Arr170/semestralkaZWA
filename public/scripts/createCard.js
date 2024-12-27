@@ -19,7 +19,7 @@ const counterSpan = document.getElementById("counter")
 const html = new XMLHttpRequest()
 let BASE_URL = ""
 const url = window.location.href
-if(url.includes("~kupriars")){
+if (url.includes("~kupriars")) {
     BASE_URL = "/~kupriars"
 }
 
@@ -89,13 +89,13 @@ export function loadSet() {
             console.log("some kind of error while uploading set")
         }
 
-        html.open("GET", BASE_URL+"/setCreator/get/" + setId)
+        html.open("GET", BASE_URL + "/setCreator/get/" + setId)
 
 
 
         html.setRequestHeader("Content-Type", "application/json")
         html.send()
-        
+
     }
     else {
         console.log("no set id in params")
@@ -136,7 +136,7 @@ export function loadPreviewImgFront() {
         reader.readAsDataURL(img)
     }
     else {
-        previewFrontImg.src = BASE_URL+"/public/static/question.png"
+        previewFrontImg.src = BASE_URL + "/public/static/question.png"
     }
 
 
@@ -167,7 +167,7 @@ export function loadPreviewImgBack() {
         reader.readAsDataURL(img)
     }
     else {
-        previewBackImg.src = BASE_URL+"/public/static/answer.png"
+        previewBackImg.src = BASE_URL + "/public/static/answer.png"
     }
 
 }
@@ -295,6 +295,9 @@ function updateCardImg() {
 
 function uploadSet() {
     preventCardDelete()
+    activeSet.is_private = document.getElementById("set-private").checked
+    console.log(document.getElementById("set-private"))
+    console.log("private", activeSet.is_private)
     const toUpload = JSON.stringify(activeSet)
 
     html.onload = () => {
@@ -311,14 +314,17 @@ function uploadSet() {
         console.log("some kind of error while uploading set")
     }
 
-    html.open("POST", BASE_URL+"/setCreator/post")
+    html.open("POST", BASE_URL + "/setCreator/post")
 
 
+    if (activeSet.name) {
+        html.setRequestHeader("Content-Type", "application/json")
+        html.send(toUpload)
+    }
+    else{
+        alert("You cannot upload set without name!")
+    }
 
-    html.setRequestHeader("Content-Type", "application/json")
-    html.send(toUpload)
-    console.log("uploaded")
-    console.log(toUpload)
 }
 
 function updateCounter(cardsInSet) {
@@ -360,7 +366,7 @@ function parseResponse(response) {
     activeSet = set
     activeCard = set.cards[0]
 
-    
+
     page = 0
     loadCard("front")
     loadPreview()
