@@ -9,6 +9,12 @@ const signupWarning = document.getElementById("signup-warning")
 const loginWarning = document.getElementById("login-warning")
 
 
+let BASE_URL = ""
+const url = window.location.href
+if(url.includes("~kupriars")){
+    BASE_URL = "/~kupriars"
+}
+
 console.log(logoutBtn)
 
 window.onclick = function (event) {
@@ -52,7 +58,7 @@ async function handleLogin(event) {
     const form = new FormData()
     try {
         const formData = new FormData(loginForm)
-        const response = await fetch("/user/login", {
+        const response = await fetch(BASE_URL+"/user/login", {
             method: 'POST',
             body: formData,
         })
@@ -76,7 +82,7 @@ async function handleSignup(event) {
     event.preventDefault()
     try {
         const formData = new FormData(signupForm)
-        const response = await fetch("/user/signup", {
+        const response = await fetch(BASE_URL+"/user/signup", {
             method: 'POST',
             body: formData,
         })
@@ -99,7 +105,7 @@ async function handleSignup(event) {
 async function handleLogout() {
     console.log("logging out")
     try {
-        const response = await fetch("/user/logout", {
+        const response = await fetch(BASE_URL+"/user/logout", {
             method: 'POST'
         })
         if (response.ok) {

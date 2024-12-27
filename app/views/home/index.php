@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="./public/styles/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
     <title>
         test
     </title>

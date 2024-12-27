@@ -17,6 +17,10 @@
          flex-direction: column;
      }
 
+     .set-viewer-controller {
+        width: 90%;
+    }
+
  }
 
  /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -38,6 +42,10 @@
         flex-direction: column;
     }
 
+    .set-viewer-controller {
+        width: 90%;
+    }
+
  }
 
  /* Medium devices (landscape tablets, 768px and up) */
@@ -55,8 +63,12 @@
 
      .set-card-viewer {
         width: 90%;
-        height: 80%;
-        flex-direction: row;
+        height: 70%;
+        flex-direction: column;
+    }
+
+    .set-viewer-controller {
+        width: 90%;
     }
 
  }
@@ -80,6 +92,10 @@
         flex-direction: row;
     }
 
+    .set-viewer-controller {
+        width: 60%;
+    }
+
  }
 
  /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -98,6 +114,10 @@
         width: 90%;
         height: 80%;
         flex-direction: row;
+    }
+
+    .set-viewer-controller {
+        width: 60%;
     }
  }
 
@@ -276,5 +296,4 @@
      margin: 1px auto 1px;
      display: flex;
      flex-direction: row;
-     width: 60%;
  }

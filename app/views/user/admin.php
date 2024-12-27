@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../public/styles/style.css">
-    <script src="/../public/scripts/admin.js" type="module" defer></script>
+    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
+    <script src="<?php echo BASE_URL;?>/public/scripts/admin.js" type="module" defer></script>
     <title>Test</title>
 </head>
 
@@ -47,7 +47,7 @@
                             echo '
                         <tr>
                             <td>
-                                <a href="./setCreator/viewer/' . htmlspecialchars($set->id) . '">
+                                <a href="'.BASE_URL.'/setCreator/viewer/' . htmlspecialchars($set->id) . '">
                                 ' . htmlspecialchars($set->name) . '
                                 </a>
                             </td>

@@ -5,15 +5,9 @@ require "../config/database.php";
 try{
     $db = new Database();
     $conn = $db->connect();
-    // $conn = new PDO("mysql:host={$config['host']};port={$config['port']}", 
-    //                 $config['username'], $config['password']);
 
-    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    //$conn->exec("CREATE DATABASE IF NOT EXISTS flashcards;");
     echo "[1] database created\n";
 
-    //$conn->exec("USE flashcards");
 
     // user table 
     $conn->exec("CREATE TABLE IF NOT EXISTS users (

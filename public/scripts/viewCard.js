@@ -7,6 +7,11 @@ const nextBtn = document.getElementById("next-btn")
 const prevBtn = document.getElementById("prev-btn")
 
 const html = new XMLHttpRequest()
+let BASE_URL = ""
+const url = window.location.href
+if(url.includes("~kupriars")){
+    BASE_URL = "/~kupriars"
+}
 
 
 let activeSet = null
@@ -39,7 +44,7 @@ export function loadSet() {
         html.onerror = () => {
         }
 
-        html.open("GET", "/setCreator/get/" + setId)
+        html.open("GET", BASE_URL+"/setCreator/get/" + setId)
 
 
 
@@ -50,13 +55,13 @@ export function loadSet() {
 
 function showAnswer(){
     cardText.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
-    cardImg.src = activeCard.answer_image_url ? activeCard.answer_image_url : "/../public/static/answer.png"
+    cardImg.src = activeCard.answer_image_url ? activeCard.answer_image_url : BASE_URL+"/public/static/answer.png"
 
 }
 
 function showQuestion(){
     cardText.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
-    cardImg.src = activeCard.question_image_url ? activeCard.question_image_url : "/../public/static/question.png"
+    cardImg.src = activeCard.question_image_url ? activeCard.question_image_url : BASE_URL+"/public/static/question.png"
 
 }
 

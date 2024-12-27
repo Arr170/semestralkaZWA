@@ -17,7 +17,11 @@ const submitBtn = document.getElementById("submit-btn")
 const counterSpan = document.getElementById("counter")
 
 const html = new XMLHttpRequest()
-
+let BASE_URL = ""
+const url = window.location.href
+if(url.includes("~kupriars")){
+    BASE_URL = "/~kupriars"
+}
 
 
 
@@ -85,7 +89,7 @@ export function loadSet() {
             console.log("some kind of error while uploading set")
         }
 
-        html.open("GET", "/setCreator/get/" + setId)
+        html.open("GET", BASE_URL+"/setCreator/get/" + setId)
 
 
 
@@ -132,7 +136,7 @@ export function loadPreviewImgFront() {
         reader.readAsDataURL(img)
     }
     else {
-        previewFrontImg.src = "/../public/static/question.png"
+        previewFrontImg.src = BASE_URL+"/public/static/question.png"
     }
 
 
@@ -163,7 +167,7 @@ export function loadPreviewImgBack() {
         reader.readAsDataURL(img)
     }
     else {
-        previewBackImg.src = "/../public/static/answer.png"
+        previewBackImg.src = BASE_URL+"/public/static/answer.png"
     }
 
 }
@@ -307,7 +311,7 @@ function uploadSet() {
         console.log("some kind of error while uploading set")
     }
 
-    html.open("POST", "/setCreator/post")
+    html.open("POST", BASE_URL+"/setCreator/post")
 
 
 

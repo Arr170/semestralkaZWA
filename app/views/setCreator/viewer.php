@@ -3,9 +3,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/../public/styles/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
     <!-- <script src="/../public/scripts/createCard.js" type="module" defer></script> -->
-    <script src="/../public/scripts/viewCard.js" type="module" defer></script>
+    <script src="<?php echo BASE_URL;?>/public/scripts/viewCard.js" type="module" defer></script>
 
     <title>
         Viewing set
@@ -21,7 +21,7 @@
     <div id="card-container" class="page-body">
         <div class="set-card-viewer">
             <div class="viewer-left-col">
-                <img id="card-img" class="set-viewer-img" alt="card image" src="/../public/static/answer.png">
+                <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL;?>/public/static/answer.png">
             </div>
             <article id="card-text" class="set-preview-text">
 
