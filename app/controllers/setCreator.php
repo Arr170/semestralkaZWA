@@ -59,8 +59,9 @@ class SetCreator extends Controller
             // check if this set already exists
             $id = $postedSet["id"];
             if ($id) { // would not be used
-                echo "set already exists, use /update endpoint";
-                exit;
+                $oldSet = new Set();
+                $oldSet->find_by_id($id);
+                $oldSet->remove();
             }
 
             $newSet = new Set(
@@ -145,8 +146,4 @@ class SetCreator extends Controller
         http_response_code(401);
         exit;
     }
-
-    public function changePropeties($id = null) {}
-
-    public function sets($id = null) {}
 }
