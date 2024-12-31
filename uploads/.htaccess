@@ -1,0 +1,9 @@
+# Deny all access by default
+Order Allow,Deny
+Deny from all
+
+# Allow access for PHP scripts
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Allow from all
+</FilesMatch>

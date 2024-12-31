@@ -1,3 +1,13 @@
+
+@media only screen and (max-width: 992px) {
+
+}
+
+@media only screen and (min-width: 992px) {
+
+}
+
+
 .form-input {
     border-radius: 10px;
     border: 2px solid var(--grey-color);

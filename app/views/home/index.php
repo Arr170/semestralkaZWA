@@ -19,13 +19,13 @@
         <div class="grid-box center">
             <?php foreach ($data as $set): ?>
                 <div class="card bg-warning">
-                    <a href="./setCreator/viewer/<?php echo $set->id;?>">
+                    <a href="./setCreator/viewer/<?php echo $set->id; ?>">
                         <h2 class="card-content">
-                        <?php echo htmlspecialchars($set->name);?>
+                            <?php echo htmlspecialchars($set->name); ?>
                         </h2>
                     </a>
                     <p>
-                        <?php echo $set->views;?>
+                        Views: <?php echo $set->views; ?>
                     </p>
                 </div>
             <?php endforeach; ?>

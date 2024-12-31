@@ -78,7 +78,16 @@ class Card{
     }
 
     public function update(){
-        
+        if($this->id){
+            $query = $this->conn->prepare("UPDATE cards
+            SET question_text = '$this->question',
+                question_img_url = '$this->question_img_url',
+                answer_text = '$this->answer',
+                answer_img_url = '$this->answer_img_url'
+            WHERE id = '$this->id';");
+
+            $query->execute();
+        }
     }
 
     

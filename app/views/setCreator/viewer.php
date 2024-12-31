@@ -23,12 +23,12 @@
             <div class="viewer-left-col">
                 <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL;?>/public/static/answer.png">
             </div>
-            <article id="card-text" class="set-preview-text">
+            <textarea id="card-text" class="set-preview-text center" readonly>
 
-            </article>
+            </textarea>
         </div>
         <div class="set-viewer-controller ">
-            <button id="prev-btn" class="set-btn-big">prev</button>
+            <button id="prev-btn" class="set-btn-big">previous</button>
             <button id="show-btn" class="set-btn-big">show</button>
             <button id="next-btn" class="set-btn-big">next</button>
         </div>

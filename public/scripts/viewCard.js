@@ -54,14 +54,16 @@ export function loadSet() {
 }
 
 function showAnswer(){
-    cardText.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
-    cardImg.src = activeCard.answer_image_url ? activeCard.answer_image_url : BASE_URL+"/public/static/answer.png"
+    // cardText.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
+    cardText.textContent = activeCard.answer ? activeCard.answer : ""
+    cardImg.src = activeCard.answer_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url : BASE_URL+"/public/static/answer.png"
 
 }
 
 function showQuestion(){
-    cardText.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
-    cardImg.src = activeCard.question_image_url ? activeCard.question_image_url : BASE_URL+"/public/static/question.png"
+    // cardText.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
+    cardText.textContent = activeCard.question ? activeCard.question : ""
+    cardImg.src = activeCard.question_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url : BASE_URL+"/public/static/question.png"
 
 }
 
@@ -107,9 +109,9 @@ function parseResponse(response) {
         card.id = c.id
         card.set_id = c.set_id
         card.question = c.question
-        card.question_image_url = c.question_image_url
+        card.question_image_url = c.question_img_url
         card.answer = c.answer
-        card.answer_image_url = c.answer_image_url
+        card.answer_image_url = c.answer_img_url
         set.cards.push(card)
     })
     activeSet = set

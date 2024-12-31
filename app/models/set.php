@@ -17,7 +17,7 @@ class Set{
     public function __construct($id = null, $name = null, $private = null, $author_id=null){
         $this->id = $id;
         $this->name = $name;
-        $this->private = $private ? $private : 'true';
+        $this->private = $private ? $private : "true";
         $this->author_id = $author_id;
         $this->views = 0;
 

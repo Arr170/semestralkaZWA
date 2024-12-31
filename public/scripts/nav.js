@@ -11,7 +11,7 @@ const loginWarning = document.getElementById("login-warning")
 
 let BASE_URL = ""
 const url = window.location.href
-if(url.includes("~kupriars")){
+if (url.includes("~kupriars")) {
     BASE_URL = "/~kupriars"
 }
 
@@ -58,7 +58,7 @@ async function handleLogin(event) {
     const form = new FormData()
     try {
         const formData = new FormData(loginForm)
-        const response = await fetch(BASE_URL+"/user/login", {
+        const response = await fetch(BASE_URL + "/user/login", {
             method: 'POST',
             body: formData,
         })
@@ -82,7 +82,7 @@ async function handleSignup(event) {
     event.preventDefault()
     try {
         const formData = new FormData(signupForm)
-        const response = await fetch(BASE_URL+"/user/signup", {
+        const response = await fetch(BASE_URL + "/user/signup", {
             method: 'POST',
             body: formData,
         })
@@ -105,13 +105,13 @@ async function handleSignup(event) {
 async function handleLogout() {
     console.log("logging out")
     try {
-        const response = await fetch(BASE_URL+"/user/logout", {
+        const response = await fetch(BASE_URL + "/user/logout", {
             method: 'POST'
         })
         if (response.ok) {
             console.log(response)
             document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-            location.href = '/'
+            location.href = BASE_URL + '/'
         }
     }
     catch (error) {
@@ -124,9 +124,18 @@ signupBtn.addEventListener("click", () => showSignup())
 loginForm.addEventListener("submit", (event) => handleLogin(event))
 
 signupForm.addEventListener("submit", (event) => handleSignup(event))
-if(logoutBtn){
+if (logoutBtn) {
     logoutBtn.addEventListener("click", () => handleLogout())
 }
 if (loginBtn) {
     loginBtn.addEventListener("click", () => showLogin())
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const burgerBtn = document.getElementById("burger-btn");
+    const navbarLinks = document.getElementById("navbar-links");
+
+    burgerBtn.addEventListener("click", () => {
+        navbarLinks.classList.toggle("active");
+    });
+});

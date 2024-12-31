@@ -1,29 +1,49 @@
- /* Extra small devices (phones, 600px and down) */
- @media only screen and (max-width: 600px) {
+ @media only screen and (max-width: 992px) {
      .set-builder-container {
          flex-direction: column;
      }
 
      .set-container {
          width: 90%;
-         height: fit-content;
+         height: 100%;
          justify-content: flex-start;
 
      }
 
      .set-card-viewer {
-         max-width: 90%;
-         height: 70%;
+         width: 90%;
+         height: 90%;
          flex-direction: column;
      }
 
+
+     .set-btn-big {
+         font-size: 50px;
+     }
+
+     .set-preview-text {
+         height: 95%;
+         min-width: 90%;
+         max-width: 95%;
+     }
+
      .set-viewer-controller {
+         left: 5%;
+         bottom: 10%;
+         position: fixed;
+         display: flex;
+         flex-direction: row;
+         justify-content: space-evenly;
          width: 90%;
+     }
+
+     .set-btn {
+         font-size: 50px;
      }
 
  }
 
- /* Small devices (portrait tablets and large phones, 600px and up) */
+ /* Small devices (portrait tablets and large phones, 600px and up)
  @media only screen and (min-width: 600px) {
      .set-builder-container {
          flex-direction: column;
@@ -31,7 +51,7 @@
 
      .set-container {
          width: 90%;
-         height: fit-content;
+         height: 100%;
          justify-content: flex-start;
 
      }
@@ -46,9 +66,13 @@
          width: 90%;
      }
 
+     .set-btn-big {
+        font-size: 50px;
+    }
+
  }
 
- /* Medium devices (landscape tablets, 768px and up) */
+
  @media only screen and (min-width: 768px) {
      .set-builder-container {
          flex-direction: column;
@@ -56,7 +80,7 @@
 
      .set-container {
          width: 90%;
-         height: fit-content;
+         height: 100%;
          justify-content: flex-start;
 
      }
@@ -71,7 +95,11 @@
          width: 90%;
      }
 
- }
+     .set-btn-big {
+        font-size: 50px;
+    }
+
+ } */
 
  /* Large devices (laptops/desktops, 992px and up) */
  @media only screen and (min-width: 992px) {
@@ -94,6 +122,18 @@
 
      .set-viewer-controller {
          width: 60%;
+         margin: 1px auto 1px;
+         display: flex;
+         flex-direction: row;
+         justify-content: space-evenly;
+     }
+
+     .set-btn-big {
+         font-size: 40px;
+     }
+
+     .set-btn {
+         font-size: x-large;
      }
 
  }
@@ -110,6 +150,18 @@
          justify-content: space-evenly;
      }
 
+     .set-preview-text {
+         resize: none;
+         border: none;
+         /* margin: 5px; */
+         display: flex;
+         max-width: 60%;
+         font-size: 30px;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+     }
+
      .set-card-viewer {
          width: 90%;
          height: 80%;
@@ -118,10 +170,24 @@
 
      .set-viewer-controller {
          width: 60%;
+         margin: 1px auto 1px;
+         display: flex;
+         flex-direction: row;
+         justify-content: space-evenly;
      }
+
+     .set-btn-big {
+         font-size: 40px;
+     }
+
+     .set-btn {
+         font-size: x-large;
+     }
+
  }
 
  .set-builder-container {
+    font-size: large;
      /* position: fixed; */
      display: flex;
      gap: 5px;
@@ -182,8 +248,14 @@
 
 
  .set-preview-text {
+     resize: none;
+     border: none;
+     /* margin: 5px; */
      display: flex;
-     width: 100%;
+     height: 95%;
+     min-width: 50%;
+     max-width: 100%;
+     font-size: 30px;
      align-items: center;
      justify-content: center;
      text-align: center;
@@ -219,6 +291,7 @@
  .set-img-input {
      border-radius: 5px;
      border: 2px solid var(--grey-color);
+     font-size: x-large;
  }
 
  .set-preview-img {
@@ -238,11 +311,11 @@
  }
 
  .set-btn {
+     color: rgb(70, 70, 70);
      border-radius: 5px;
      outline-color: var(--grey-color);
      outline-width: 2px;
      outline-style: solid;
-     font-size: 20px;
      font-weight: bold;
      width: fit-content;
      border: none;
@@ -250,13 +323,15 @@
  }
 
  .set-btn-big {
+     color: rgb(70, 70, 70);
      border-radius: 5px;
      outline-color: var(--grey-color);
      outline-width: 2px;
      outline-style: solid;
-     font-size: 20px;
      font-weight: bold;
+     min-width: fit-content;
      width: 30%;
+     height: max-content;
      border: none;
      margin: 3px
  }
@@ -265,6 +340,11 @@
      background-color: var(--grey-color);
      color: var(--lightgrey-color);
  }
+
+ .set-btn:disabled {
+    background-color: var(--grey-color);
+    color: var(--lightgrey-color);
+}
 
  .set-name-input-div {
      display: flex;
@@ -289,13 +369,22 @@
  }
 
  .set-controller {
-     margin: 1px;
+     /* margin: 1px; */
+
+     min-width: fit-content;
+     width: 50%;
      display: flex;
-     flex-wrap: wrap;
+     justify-content: space-evenly;
+     align-items: center;
+     /* flex-wrap: wrap; */
  }
 
  .set-viewer-controller {
-     margin: 1px auto 1px;
      display: flex;
      flex-direction: row;
+     justify-content: space-evenly;
+ }
+
+ .counter-txt{
+    font-size: large;
  }
