@@ -2,7 +2,6 @@
 @import url("backgrounds.css");
 @import url("colors.css");
 @import url("navbar.css");
-@import url("signing.css");
 @import url("modal.css");
 @import url("setbuilder.css");
 @import url("table.css");
@@ -27,6 +26,18 @@ body {
     opacity: 50%;
 }
 
+
+
+.search-form{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: fit-content;
+    margin: auto;
+    padding: 5px 5px 10px;
+}
+
 .pagination{
     width: fit-content;
     margin: 10px;
@@ -37,16 +48,6 @@ body {
     gap: 20px;  
 }
 
-.search-form{
-    border: none;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    width: fit-content;
-    margin: auto;
-    padding: 5px 5px 10px;
-}
-
 .btn-pagination{
     color:var(--grey-color);
     text-decoration: none;
@@ -54,12 +55,10 @@ body {
     margin: auto;
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: large;
     font-weight: bold;
 }
 
 .sign-pagination{
-    font-size: large;
     font-weight: bold;
     color: var(--grey-color);
 }
@@ -97,7 +96,6 @@ body {
 
 .profile-container{
     display: flex;
-    flex-direction: row;
 }
 
 .profile-stats{
@@ -105,49 +103,39 @@ body {
 }
 
 
-@media only screen and (min-width: 100px) {
+@media (min-width: 100px) {
+
+    .profile-container{
+        flex-direction: column;
+        justify-content: start;
+        gap: 15%;
+    }
+
     .grid-box {
         grid-template-columns: 100%;
         grid-auto-rows: auto;
     }
 
     .card {
-        height: fit-content;
-        width: 80%;
+        height: 8vh;
+        min-height: fit-content;
+        width: 100%;
+        font-size: x-large;
 
+    }
+
+    .pagination{
+        font-size: xx-large;
+    }
+
+    .search-form{
+        width: 100%;
     }
 
 }
-/* 
-@media only screen and (min-width: 600px) {
-    .grid-box {
-        grid-template-columns: 400px;
-        grid-auto-rows: 150px;
-    }
-
-    .card {
-        height: 150px;
-        width: 400px;
-
-    }
-}
 
 
-
-@media only screen and (min-width: 768px) {
-    .grid-box {
-        grid-template-columns: 280px 280px;
-        grid-auto-rows: 280px;
-    }
-
-    .card {
-        height: 280px;
-        width: 280px;
-
-    }
-} */
-
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
     .grid-box {
         grid-template-columns: 300px 300px 300px;
         grid-auto-rows: 300px;
@@ -159,9 +147,17 @@ body {
 
     }
 
+    .profile-container{
+        flex-direction: row;
+        
+    }
+
+    .pagination{
+        font-size: medium;
+    }
 }
 
-@media only screen and (min-width: 1200px) {
+@media (min-width: 1200px) {
     .grid-box {
         grid-template-columns: 300px 300px 300px 300px;
         grid-auto-rows: 300px;
@@ -218,3 +214,14 @@ body {
 
 
 
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
+    .print-small, .print-small *{
+        font-size: small !important;
+    }
+}

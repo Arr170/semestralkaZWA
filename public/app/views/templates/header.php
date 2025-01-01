@@ -61,7 +61,7 @@ $nav = '
 
 if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != null) {
     $nav = $nav . '
-<nav class="page-navbar bg-lightgrey text-secondary no-print">
+<nav class="page-navbar bg-lightgrey text-secondary">
     <div class="navbar-header">
         <a href="' . BASE_URL . '/" class="navbar-name">
             ZWA
@@ -84,7 +84,7 @@ if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != null) {
     $nav = $nav . '</div></nav>';
 } else {
     $nav = $nav . '
-<nav class="page-navbar bg-lightgrey text-secondary no-print">
+<nav class="page-navbar bg-lightgrey text-secondary">
 
     <div class="navbar-header">
         <a href="' . BASE_URL . '/" class="navbar-name">

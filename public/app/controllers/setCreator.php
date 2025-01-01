@@ -38,8 +38,8 @@ class SetCreator extends Controller
         $set->addView();
 
         $data = [
-            "setId" => $set->id,
-            "owner" => $set->isOwnedBy($user->id),
+            "set" => $set,
+            "user" => $user
         ];
 
         $this->view("setCreator/viewer",  $data);
@@ -281,12 +281,12 @@ class SetCreator extends Controller
         }
         $ids = explode("_", $imagePath);
         $set = new Set();
-        $set->find_by_id($ids[1]);
+        $set->find_by_id($ids[2]);
 
         $img_path = BASE_PATH . '/uploads/' . $imagePath;
 
         if (file_exists($img_path)) {
-            if ($set->isOwnedBy($user->id) || $set->private == "false") {
+            if ($set->isOwnedBy($user->id) || !$set->private) {
                 $mimeType = mime_content_type($img_path);
                 header('Content-Type: ' . $mimeType);
                 header('Content-Length: ' . filesize($img_path));
@@ -294,7 +294,7 @@ class SetCreator extends Controller
                 exit;
             } else {
                 http_response_code(401);
-                echo "Access denied.".$set->private;
+                echo "Access denied.";
                 exit;
             }
         } else {

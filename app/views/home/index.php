@@ -12,8 +12,6 @@
 
 <body class="bg-light">
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
-
-
     <div class="page-body">
         <h1 class="center text-center">Popular sets:</h1>
         <form method="GET" action="" class="search-form">
@@ -59,22 +57,23 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="pagination center text-center">
-            <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage - 1; ?>"
-                class="btn-pagination <?php if ($currentPage == 1): ?> disable <?php endif; ?>">
-                Previous
-            </a>
+        <?php if ($totalPages > 1): ?>
+            <div class="pagination center text-center">
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage - 1; ?>"
+                    class="btn-pagination <?php if ($currentPage == 1): ?> disable <?php endif; ?>">
+                    Previous
+                </a>
 
 
-            <span class="sign-pagination">Page: <?php echo $currentPage; ?></span>
+                <span class="sign-pagination">Page: <?php echo $currentPage; ?></span>
 
-            <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage + 1; ?>"
-                class="btn-pagination <?php if ($currentPage >= $totalPages): ?> disable <?php endif; ?>">
-                Next
-            </a>
-        </div>
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage + 1; ?>"
+                    class="btn-pagination <?php if ($currentPage >= $totalPages): ?> disable <?php endif; ?>">
+                    Next
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
-
 </body>
 
 </html>

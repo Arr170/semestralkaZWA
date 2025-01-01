@@ -14,7 +14,7 @@
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
 
     <div class="set-builder-container">
-        <div id="set-container" class="set-container center no-print">
+        <div id="set-container" class="set-container center">
             <div class="set-name-input-div center">
                 <div >
                     <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
@@ -22,7 +22,7 @@
                 </div>
                 <div >
                     <label for="set-private" class="set-name-label">Make private:</label>
-                    <input type="checkbox" id="set-private" class="set-check-input" checked>
+                    <input type="checkbox" id="set-private" class="set-name-input" checked>
                 </div>
 
             </div>
@@ -58,8 +58,8 @@
                 <button id="delete-card-btn" class="set-btn">Delete card</button>
             </div>
         </div>
-        <div class="set-container center print-small" id="set-preview-container">
-            <h2 class="center no-print">Card preview</h2>
+        <div class="set-container center" id="set-preview-container">
+            <h2 class="center">Card preview</h2>
             <div class="set-card-preview">
                 <div class="preview-left-col">
                     <h4 class="center">Question</h4>

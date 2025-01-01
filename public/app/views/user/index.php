@@ -46,7 +46,7 @@
             ?>
             <div class="card bg-warning">
                 <div class="card-content">
-                    <a href="<?php echo BASE_URL; ?>/setCreator/index" class="simple-link">
+                    <a href="<?php echo BASE_URL; ?>/setCreator/index">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
                             viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -58,7 +58,7 @@
                 </div>
 
             </div>
-            <?php  foreach ($paginatedSets as $set): ?>
+            <?php foreach ($paginatedSets as $set): ?>
                 <div class="card bg-warning">
                     <a href="./setCreator/viewer/<?php echo $set->id; ?>" class="simple-link">
 
@@ -75,7 +75,6 @@
             <?php endforeach; ?>
 
         </div>
-        <?php if($totalPages > 1):?>
         <div class="pagination center text-center">
             <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage - 1; ?>"
                 class="btn-pagination <?php if ($currentPage == 1): ?> disable <?php endif; ?>">
@@ -92,7 +91,6 @@
 
 
         </div>
-        <?php endif;?>
 
     </div>
 

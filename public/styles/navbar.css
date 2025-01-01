@@ -1,7 +1,7 @@
 @import url("colors.css");
 
 
-@media only screen and (max-width: 992px) {
+@media (max-width: 992px) {
     .page-navbar {
         line-height: 7rem;
         height: 6%;
@@ -23,7 +23,7 @@
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
     .page-navbar {
         line-height: 3rem;
         height: 70px;

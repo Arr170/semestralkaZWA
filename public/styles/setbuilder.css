@@ -1,4 +1,4 @@
- @media only screen and (max-width: 992px) {
+ @media (max-width: 992px) {
      .set-builder-container {
          flex-direction: column;
          height: 180%;
@@ -69,11 +69,14 @@
  }
 
  /* Large devices (laptops/desktops, 992px and up) */
- @media only screen and (min-width: 992px) {
+ @media (min-width: 992px) {
      .set-builder-container {
-        position: fixed;
+         /* position: fixed; */
          flex-direction: row;
+         justify-content: center;
          height: 85%;
+         padding: 2px;
+         left: 0;
      }
 
      .set-container {
@@ -131,11 +134,9 @@
 
  .set-builder-container {
      font-size: large;
-     /* position: fixed; */
      display: flex;
      gap: 5px;
      margin-top: 10vh;
-
      width: 100%;
  }
 
@@ -195,7 +196,7 @@
      height: 95%;
      min-width: 50%;
      max-width: 100%;
-     font-size: x-large;
+     font-size: xx-large;
      align-items: center;
      justify-content: center;
      text-align: center;
@@ -290,11 +291,16 @@
  }
 
  .set-name-input {
-    font-size: xx-large;
+     font-size: xx-large;
      border-radius: 5px;
      border: 2px solid var(--grey-color);
      margin: 1px;
      padding: 2px;
+ }
+
+ .set-check-input{
+    transform: scale(2);
+    vertical-align: middle;
  }
 
  .set-name-label {

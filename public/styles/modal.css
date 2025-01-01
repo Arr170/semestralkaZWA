@@ -1,31 +1,31 @@
 @import url("colors.css");
 
 
-@media only screen and (max-width: 992px) {
+@media (max-width: 992px) {
     .modal-content {
         top: 35%;
         margin: 40% auto;
     }
 
     .form-input {
-        font-size: 40px;
-        width: 70%;
+        font-size: xx-large;
+        width: 90%;
     }
 
     .form-label {
-        font-size: 40px;
+        font-size: xx-large;
     }
 
     .form-btn{
-        font-size: 40px;
+        font-size: xx-large;
     }
 
     .form-sign{
-        font-size: 30px;
+        font-size: large;
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
     .modal-content {
         width: 60%;
         margin: 15% auto;
@@ -33,22 +33,22 @@
     }
 
     .form-input {
-        font-size: 20px;
+        font-size: large;
         width: 60%;
     }
 
     .form-label {
-        font-size: 20px;
+        font-size: large;
     }
 
 
     .form-btn{
-        font-size: 20px;
+        font-size: large;
     }
 
     .form-sign{
-        font-size: 15px;
-    }
+        font-size: medium;
+    } 
 }
 
 .modal {
@@ -86,6 +86,7 @@
 .form-input {
     border-radius: 10px;
     border: 2px solid var(--grey-color);
+    min-width: fit-content;
     margin: auto;
     padding: 2px;
 
@@ -118,7 +119,7 @@
 }
 
 
-form {
+.form {
     border: 2px solid var(--grey-color);
     display: flex;
     flex-direction: column;
@@ -139,6 +140,8 @@ form {
 .link-active{
     color: var(--red-color);
 }
+
+
 
 .in-modal-img {
     max-width: 90%;

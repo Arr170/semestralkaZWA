@@ -11,9 +11,13 @@
 
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
 
-    <div class="page-body profile-container print-small">
+    <div class="page-body profile-container">
+        <!-- Search form -->
+
+
+        <!-- Display sets -->
         <div class="table-container" id="set-list">
-            <form method="GET" action="" class="search-form no-print">
+            <form method="GET" action="" class="search-form">
                 <input type="text" name="set-search" placeholder="Search set by name or id" class="form-input"
                     value="<?php echo htmlspecialchars($_GET['set-search'] ?? ''); ?>">
                 <button type="submit" class="form-btn">Search</button>
@@ -34,6 +38,7 @@
                 </thead>
                 <tbody>
                     <?php
+                    // Get search term from user input
                     $searchTermSet = $_GET['set-search'] ?? '';
                     $filteredSets = array_filter($data["sets"], function ($set) use ($searchTermSet) {
                         return !$searchTermSet ||
@@ -51,6 +56,7 @@
                     $paginatedSets = array_slice($filteredSets, $offset, $perPage);
 
                     foreach ($paginatedSets as $set) {
+                        // Check if the name contains the search term
                         echo '
                         <tr>
                             <td>
@@ -88,7 +94,7 @@
             </div>
         </div>
         <div class="table-container" id="users-list">
-            <form method="GET" action="" class="search-form no-print">
+            <form method="GET" action="" class="search-form">
                 <input type="text" name="user-search" placeholder="Search user by name or id" class="form-input"
                     value="<?php echo htmlspecialchars($_GET['user-search'] ?? ''); ?>">
                 <button type="submit" class="form-btn">Search</button>
@@ -106,6 +112,7 @@
                 </thead>
                 <tbody>
                     <?php
+                    // Get search term from user input
                     $searchTermUser = $_GET['user-search'] ?? '';
 
                     $filteredUsers = array_filter($data["users"], function ($user) use ($searchTermUser) {
@@ -125,6 +132,7 @@
 
 
                     foreach ($paginatedUsers as $user) {
+                        // Check if the name contains the search term
                         if (!$searchTerm || stripos($user->username, $searchTerm) !== false || stripos($user->id, $searchTerm) !== false) {
                             echo '
                         <tr>
