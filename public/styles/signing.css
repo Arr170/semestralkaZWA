@@ -12,6 +12,7 @@
     border-radius: 10px;
     border: 2px solid var(--grey-color);
     width: 60%;
+    min-width: fit-content;
     margin: auto;
     font-size: 20px;
     padding: 2px;
@@ -47,7 +48,7 @@
 }
 
 
-form {
+.form {
     border: 2px solid var(--grey-color);
     display: flex;
     flex-direction: column;

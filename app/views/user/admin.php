@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
-    <script src="<?php echo BASE_URL;?>/public/scripts/admin.js" type="module" defer></script>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
+    <script src="<?php echo BASE_URL; ?>/public/scripts/admin.js" type="module" defer></script>
     <title>Test</title>
 </head>
 
@@ -17,15 +17,15 @@
 
         <!-- Display sets -->
         <div class="table-container" id="set-list">
-            <form method="GET" action="" class="search-bar">
-                <input type="text" name="set-search" placeholder="Search sets by name or id" class=""
+            <form method="GET" action="" class="search-form">
+                <input type="text" name="set-search" placeholder="Search set by name or id" class="form-input"
                     value="<?php echo htmlspecialchars($_GET['set-search'] ?? ''); ?>">
-                <button type="submit" class="btn">Search</button>
+                <button type="submit" class="form-btn">Search</button>
             </form>
             <table>
                 <thead>
                     <tr>
-                        <h2 class="center">
+                        <h2 class="text-center">
                             All sets
                         </h2>
 
@@ -39,15 +39,28 @@
                 <tbody>
                     <?php
                     // Get search term from user input
-                    $searchTerm = $_GET['set-search'] ?? '';
+                    $searchTermSet = $_GET['set-search'] ?? '';
+                    $filteredSets = array_filter($data["sets"], function ($set) use ($searchTermSet) {
+                        return !$searchTermSet ||
+                            stripos($set->name, $searchTermSet) !== false ||
+                            stripos($set->id, $searchTermSet);
+                    });
 
-                    foreach ($data["sets"] as $set) {
+                    $perPage = 12;
+                    $total = count($filteredSets);
+                    $totalPages = ceil($total / $perPage);
+                    $currentPage = isset($_GET["page_set"]) ? (int)$_GET["page_set"] : 1;
+                    $currentPage = max(1, min($totalPages, $currentPage));
+                    $offset = ($currentPage - 1) * $perPage;
+
+                    $paginatedSets = array_slice($filteredSets, $offset, $perPage);
+
+                    foreach ($paginatedSets as $set) {
                         // Check if the name contains the search term
-                        if (!$searchTerm || stripos($set->name, $searchTerm) !== false || stripos($set->id, $searchTerm) !== false) {
-                            echo '
+                        echo '
                         <tr>
                             <td>
-                                <a href="'.BASE_URL.'/setCreator/viewer/' . htmlspecialchars($set->id) . '">
+                                <a href="' . BASE_URL . '/setCreator/viewer/' . htmlspecialchars($set->id) . '">
                                 ' . htmlspecialchars($set->name) . '
                                 </a>
                             </td>
@@ -55,28 +68,40 @@
                                 ' . htmlspecialchars($set->id) . '
                             </td>
                             <td>
-                                <button class="btn" onclick="deleteSet(\''.$set->id.'\')" >delete</button>
+                                <button class="table-btn" onclick="deleteSet(\'' . $set->id . '\')" >delete</button>
                             </td>
                         </tr>
                         ';
-                        }
                     }
                     ?>
                 </tbody>
             </table>
+            <div class="pagination center text-center">
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page_set=<?php echo $currentPage - 1; ?>"
+                    class="btn-pagination <?php if ($currentPage == 1): ?> disable <?php endif; ?>">
+                    Previous
+                </a>
 
 
+                <span class="sign-pagination">Page: <?php echo $currentPage; ?></span>
 
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page_set=<?php echo $currentPage + 1; ?>"
+                    class="btn-pagination <?php if ($currentPage >= $totalPages): ?> disable <?php endif; ?>">
+                    Next
+                </a>
+
+
+            </div>
         </div>
         <div class="table-container" id="users-list">
-            <form method="GET" action="" class="search-bar">
-                <input type="text" name="user-search" placeholder="Search user by name or id" class=""
+            <form method="GET" action="" class="search-form">
+                <input type="text" name="user-search" placeholder="Search user by name or id" class="form-input"
                     value="<?php echo htmlspecialchars($_GET['user-search'] ?? ''); ?>">
-                <button type="submit" class="btn">Search</button>
+                <button type="submit" class="form-btn">Search</button>
             </form>
             <table>
                 <thead>
-                    <h2 class="center">
+                    <h2 class="text-center">
                         All users
                     </h2>
                     <tr>
@@ -88,9 +113,25 @@
                 <tbody>
                     <?php
                     // Get search term from user input
-                    $searchTerm = $_GET['user-search'] ?? '';
+                    $searchTermUser = $_GET['user-search'] ?? '';
 
-                    foreach ($data["users"] as $user) {
+                    $filteredUsers = array_filter($data["users"], function ($user) use ($searchTermUser) {
+                        return !$searchTermUser ||
+                            stripos($user->name, $searchTermUser) !== false ||
+                            stripos($user->id, $searchTermUser);
+                    });
+
+                    $perPage = 12;
+                    $total = count($filteredUsers);
+                    $totalPagesUsers = ceil($total / $perPage);
+                    $currentPageUsers = isset($_GET["page_user"]) ? (int)$_GET["page_user"] : 1;
+                    $currentPageUsers = max(1, min($totalPagesUsers, $currentPageUsers));
+                    $offset = ($currentPageUsers - 1) * $perPage;
+
+                    $paginatedUsers = array_slice($filteredUsers, $offset, $perPage);
+
+
+                    foreach ($paginatedUsers as $user) {
                         // Check if the name contains the search term
                         if (!$searchTerm || stripos($user->username, $searchTerm) !== false || stripos($user->id, $searchTerm) !== false) {
                             echo '
@@ -102,7 +143,7 @@
                                 ' . htmlspecialchars($user->id) . '
                             </td>
                             <td>
-                                <button class="btn" onclick="deleteUser(\''.$user->id.'\')">delete</button>
+                                <button class="table-btn" onclick="deleteUser(\'' . $user->id . '\')">delete</button>
                             </td>
                         </tr>
                         ';
@@ -112,7 +153,22 @@
                 </tbody>
             </table>
 
+            <div class="pagination center text-center">
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page_user=<?php echo $currentPageUsers - 1; ?>"
+                    class="btn-pagination <?php if ($currentPageUsers == 1): ?> disable <?php endif; ?>">
+                    Previous
+                </a>
 
+
+                <span class="sign-pagination">Page: <?php echo $currentPageUsers; ?></span>
+
+                <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page_user=<?php echo $currentPageUsers + 1; ?>"
+                    class="btn-pagination <?php if ($currentPageUsers >= $totalPagesUsers): ?> disable <?php endif; ?>">
+                    Next
+                </a>
+
+
+            </div>
 
         </div>
     </div>

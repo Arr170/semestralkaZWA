@@ -5,7 +5,7 @@ $nav = '
 
     <div class="modal-content">
 
-        <form class="bg-lightgrey" id="login-form">
+        <form class="bg-lightgrey form" id="login-form">
             <div class="inputdiv">
                 <label class="form-label" for="email-input">E-mail:</label>
                 <input class="form-input" type="email" id="email-input" name="email" required/>
@@ -33,7 +33,7 @@ $nav = '
 
     <div class="modal-content">
 
-        <form class="bg-lightgrey" id="signup-form">
+        <form class="bg-lightgrey form" id="signup-form">
             <div class="inputdiv">
                 <label class="form-label" for="sign-email-input">E-mail:</label>
                 <input class="form-input" type="email" id="sign-email-input" name="email" required/>

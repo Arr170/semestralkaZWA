@@ -15,11 +15,35 @@
 
 
     <div class="page-body">
-        <div class="center text-center">
-            <h1 class="center">Popular sets:</h1>
-        </div>
+        <h1 class="center text-center">Popular sets:</h1>
+        <form method="GET" action="" class="search-form">
+            <input oninput="this.form.submit()"
+                autofocus
+                type="text"
+                name="search"
+                placeholder="Search set by name or id"
+                class="form-input"
+                onfocus="this.setSelectionRange(this.value.length, this.value.length)"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+        </form>
         <div class="grid-box center">
-            <?php foreach ($data as $set): ?>
+            <?php
+            $searchTermSet = $_GET['search'] ?? '';
+            $filteredSets = array_filter($data, function ($set) use ($searchTermSet) {
+                return !$searchTermSet ||
+                    stripos($set->name, $searchTermSet) !== false;
+            });
+
+            $perPage = 12;
+            $total = count($filteredSets);
+            $totalPages = ceil($total / $perPage);
+            $currentPage = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+            $currentPage = max(1, min($totalPages, $currentPage));
+            $offset = ($currentPage - 1) * $perPage;
+
+            $paginatedSets = array_slice($filteredSets, $offset, $perPage);
+            ?>
+            <?php foreach ($paginatedSets as $set): ?>
                 <div class="card bg-warning">
                     <a href="./setCreator/viewer/<?php echo $set->id; ?>" class="simple-link">
 
@@ -34,6 +58,20 @@
 
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div class="pagination center text-center">
+            <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage - 1; ?>"
+                class="btn-pagination <?php if ($currentPage == 1): ?> disable <?php endif; ?>">
+                Previous
+            </a>
+
+
+            <span class="sign-pagination">Page: <?php echo $currentPage; ?></span>
+
+            <a href="?set-search=<?php echo urlencode($searchTermSet); ?>&page=<?php echo $currentPage + 1; ?>"
+                class="btn-pagination <?php if ($currentPage >= $totalPages): ?> disable <?php endif; ?>">
+                Next
+            </a>
         </div>
     </div>
 

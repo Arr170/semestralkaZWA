@@ -1,6 +1,5 @@
 @import url("text.css");
 @import url("backgrounds.css");
-@import url("card.css");
 @import url("colors.css");
 @import url("navbar.css");
 @import url("signing.css");
@@ -18,8 +17,52 @@ body {
     display: none;
 }
 
+.fixed{
+    position: fixed !important;
+}
 
+.disable{
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 50%;
+}
 
+.pagination{
+    width: fit-content;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Align items horizontally in the center */
+    align-items: center;    /* Align items vertically in the center */
+    gap: 20px;  
+}
+
+.search-form{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+    padding: 5px 5px 10px;
+}
+
+.btn-pagination{
+    color:var(--grey-color);
+    text-decoration: none;
+    outline: 2px solid var(--grey-color);
+    margin: auto;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.sign-pagination{
+    font-size: large;
+    font-weight: bold;
+    color: var(--grey-color);
+}
 
 
 
