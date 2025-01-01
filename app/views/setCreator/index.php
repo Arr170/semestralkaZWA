@@ -30,7 +30,7 @@
                 <button class="set-btn" id="flip-front" disabled>Front side</button>
                 <button class="set-btn" id="flip-back">Back side</button>
             </div>
-            <div id="active-card" class="set-card">
+            <div id="active-card" class="set-text-input-container">
                 <textarea id="set-card-text" class="set-textarea"></textarea>
                 <input id="set-card-img" type="file" class="set-img-input" accept="image/png, image/jpeg">
             </div>

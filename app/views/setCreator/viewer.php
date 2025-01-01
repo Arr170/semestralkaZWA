@@ -5,7 +5,7 @@
 <head>
     <link rel="stylesheet" href="<?php echo BASE_URL;?>/public/styles/style.css">
     <!-- <script src="/../public/scripts/createCard.js" type="module" defer></script> -->
-    <script src="<?php echo BASE_URL;?>/public/scripts/viewCard.js" type="module" defer></script>
+    <script src="<?php echo BASE_URL;?>/public/scripts/viewSet.js" type="module" defer></script>
 
     <title>
         Viewing set
@@ -23,7 +23,7 @@
             <div class="viewer-left-col">
                 <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL;?>/public/static/answer.png">
             </div>
-            <textarea id="card-text" class="set-preview-text center" readonly>
+            <textarea id="card-text" class="set-preview-text center" disabled>
 
             </textarea>
         </div>

@@ -16,8 +16,8 @@
 
 
     <div class="page-body profile-container">
-        <div class=""><!--my cards holder-->
-            <h1 class="center">My sets:</h1>
+        <div class="w-50 center"><!--my cards holder-->
+            <h1 class="center text-center">My sets:</h1>
             <div class="grid-box center">
                 <div class="card bg-warning">
                     <div class="card-content">
@@ -35,22 +35,23 @@
                 </div>
                 <?php foreach ($data["sets"] as $set): ?>
                     <div class="card bg-warning">
-                        <p>
-                            <a href="./setCreator/index/<?php echo $set->id; ?>">
-                                <h2>
-                                    <?php echo htmlspecialchars($set->name); ?>
-                                </h2>
-                            </a>
-                        </p>
-                        <p>
-                            Views: <?php echo $set->views; ?>
-                        </p>
+                        <a href="./setCreator/viewer/<?php echo $set->id; ?>" class="simple-link">
+
+                            <h1 class="center">
+                                <?php echo htmlspecialchars($set->name); ?>
+                            </h1>
+
+                            <p>
+                                Views: <?php echo $set->views; ?>
+                            </p>
+                        </a>
+
                     </div>
                 <?php endforeach; ?>
 
             </div>
         </div>
-        <div class="center profile-stats"><!--profile info-->
+        <div class="profile-stats center"><!--profile info-->
             <h1 id="profile-name">
                 <?php
                 echo $data["username"];

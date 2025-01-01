@@ -5,11 +5,13 @@ const cardText = document.getElementById("card-text")
 const showBtn = document.getElementById("show-btn")
 const nextBtn = document.getElementById("next-btn")
 const prevBtn = document.getElementById("prev-btn")
+const modalImg = document.getElementById("card-img-modal")
+const imgModal = document.getElementById("img-modal")
 
 const html = new XMLHttpRequest()
 let BASE_URL = ""
 const url = window.location.href
-if(url.includes("~kupriars")){
+if (url.includes("~kupriars")) {
     BASE_URL = "/~kupriars"
 }
 
@@ -44,43 +46,43 @@ export function loadSet() {
         html.onerror = () => {
         }
 
-        html.open("GET", BASE_URL+"/setCreator/get/" + setId)
+        html.open("GET", BASE_URL + "/setCreator/get/" + setId)
 
 
 
         html.send()
-        
+
     }
 }
 
-function showAnswer(){
+function showAnswer() {
     // cardText.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     cardText.textContent = activeCard.answer ? activeCard.answer : ""
-    cardImg.src = activeCard.answer_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url : BASE_URL+"/public/static/answer.png"
+    cardImg.src = activeCard.answer_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url : BASE_URL + "/public/static/answer.png"
 
 }
 
-function showQuestion(){
+function showQuestion() {
     // cardText.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
     cardText.textContent = activeCard.question ? activeCard.question : ""
-    cardImg.src = activeCard.question_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url : BASE_URL+"/public/static/question.png"
+    cardImg.src = activeCard.question_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url : BASE_URL + "/public/static/question.png"
 
 }
 
-function handleShowBtn(){
-    if(side === "q"){
+function handleShowBtn() {
+    if (side === "q") {
         side = "a"
         showAnswer()
 
     }
-    else if(side === "a"){
+    else if (side === "a") {
         side = "q"
         showQuestion()
     }
 }
 
-function showNext(){
-    if(page < activeSet.cards.length-1){
+function showNext() {
+    if (page < activeSet.cards.length - 1) {
         page += 1
         activeCard = activeSet.cards[page]
         showQuestion()
@@ -88,8 +90,8 @@ function showNext(){
 
 }
 
-function showPrev(){
-    if(page > 0){
+function showPrev() {
+    if (page > 0) {
         page -= 1
         activeCard = activeSet.cards[page]
         showQuestion()
@@ -121,10 +123,30 @@ function parseResponse(response) {
     showQuestion()
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
+function showImgBig() {
+    console.log("hello?")
+
+
+    modalImg.src = cardImg.src
+    imgModal.style.display = "block"
+
+
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
     loadSet()
 })
 
-prevBtn.addEventListener("click", ()=>showPrev())
-nextBtn.addEventListener("click", ()=>showNext())
-showBtn.addEventListener("click", ()=>handleShowBtn())
+window.addEventListener("click", (event) => {
+    console.log(event.target)
+    if (event.target == imgModal || event.target == modalImg) {
+        imgModal.style.display = "none"
+        console.log("closing")
+    }
+})
+
+prevBtn.addEventListener("click", () => showPrev())
+nextBtn.addEventListener("click", () => showNext())
+showBtn.addEventListener("click", () => handleShowBtn())
+cardImg.addEventListener("click", () => showImgBig())

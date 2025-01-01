@@ -1,12 +1,14 @@
  @media only screen and (max-width: 992px) {
      .set-builder-container {
          flex-direction: column;
+         height: 180%;
      }
 
      .set-container {
-         width: 90%;
-         height: 100%;
-         justify-content: flex-start;
+         width: 95%;
+         height: 50%;
+         justify-content: space-around;
+         margin-bottom: 5px;
 
      }
 
@@ -14,6 +16,20 @@
          width: 90%;
          height: 90%;
          flex-direction: column;
+     }
+
+     .set-card-preview {
+         width: 90%;
+         height: 90%;
+         flex-direction: column;
+     }
+
+     .preview-left-col {
+         flex-direction: column;
+         width: 100%;
+         max-height: 50%;
+         border-bottom: 2px solid var(--lightgrey-color);
+
      }
 
 
@@ -41,131 +57,50 @@
          font-size: 50px;
      }
 
- }
-
- /* Small devices (portrait tablets and large phones, 600px and up)
- @media only screen and (min-width: 600px) {
-     .set-builder-container {
-         flex-direction: column;
+     .set-textarea {
+         height: 80%;
+         font-size: xx-large;
      }
 
-     .set-container {
-         width: 90%;
-         height: 100%;
-         justify-content: flex-start;
-
-     }
-
-     .set-card-viewer {
-         max-width: 90%;
+     .set-text-input-container {
          height: 70%;
-         flex-direction: column;
      }
-
-     .set-viewer-controller {
-         width: 90%;
-     }
-
-     .set-btn-big {
-        font-size: 50px;
-    }
 
  }
-
-
- @media only screen and (min-width: 768px) {
-     .set-builder-container {
-         flex-direction: column;
-     }
-
-     .set-container {
-         width: 90%;
-         height: 100%;
-         justify-content: flex-start;
-
-     }
-
-     .set-card-viewer {
-         width: 90%;
-         height: 70%;
-         flex-direction: column;
-     }
-
-     .set-viewer-controller {
-         width: 90%;
-     }
-
-     .set-btn-big {
-        font-size: 50px;
-    }
-
- } */
 
  /* Large devices (laptops/desktops, 992px and up) */
  @media only screen and (min-width: 992px) {
      .set-builder-container {
-         flex-direction: column;
+        position: fixed;
+         flex-direction: row;
+         height: 85%;
      }
 
      .set-container {
          width: 90%;
-         height: fit-content;
-         justify-content: flex-start;
-
-     }
-
-     .set-card-viewer {
-         width: 90%;
-         height: 80%;
-         flex-direction: row;
-     }
-
-     .set-viewer-controller {
-         width: 60%;
-         margin: 1px auto 1px;
-         display: flex;
-         flex-direction: row;
-         justify-content: space-evenly;
-     }
-
-     .set-btn-big {
-         font-size: 40px;
-     }
-
-     .set-btn {
-         font-size: x-large;
-     }
-
- }
-
- /* Extra large devices (large laptops and desktops, 1200px and up) */
- @media only screen and (min-width: 1200px) {
-     .set-builder-container {
-         flex-direction: row;
-     }
-
-     .set-container {
-         width: 45%;
          height: 100%;
-         justify-content: space-evenly;
-     }
+         justify-content: space-around;
 
-     .set-preview-text {
-         resize: none;
-         border: none;
-         /* margin: 5px; */
-         display: flex;
-         max-width: 60%;
-         font-size: 30px;
-         align-items: center;
-         justify-content: center;
-         text-align: center;
      }
 
      .set-card-viewer {
          width: 90%;
          height: 80%;
          flex-direction: row;
+     }
+
+     .set-card-preview {
+         width: 90%;
+         height: 45%;
+         flex-direction: row;
+
+     }
+
+     .preview-left-col {
+         flex-direction: column;
+         max-width: 40%;
+         border-right: 2px solid var(--lightgrey-color);
+
      }
 
      .set-viewer-controller {
@@ -184,22 +119,29 @@
          font-size: x-large;
      }
 
+     .set-textarea {
+         height: 70%;
+         font-size: large;
+     }
+
+
+
  }
+
 
  .set-builder-container {
-    font-size: large;
+     font-size: large;
      /* position: fixed; */
      display: flex;
      gap: 5px;
      margin-top: 10vh;
-     height: 85%;
+
      width: 100%;
  }
 
  .set-container {
      display: flex;
      flex-direction: column;
-     /* align-items: stretch; */
      max-width: 100% !important;
      border-radius: 5px;
      border: 2px solid var(--darkred-color);
@@ -216,7 +158,7 @@
      /* max-width: 50% !important; */
  }
 
- .set-card {
+ .set-text-input-container {
      display: flex;
      flex-direction: column;
      align-items: center;
@@ -226,14 +168,12 @@
  }
 
  .set-card-preview {
-     width: 90%;
-     height: 45%;
+
      border-radius: 5px;
      border: 2px solid var(--grey-color);
      background-color: white;
      margin: 2px auto 2px;
      display: flex;
-     flex-direction: row;
  }
 
  .set-card-viewer {
@@ -255,7 +195,7 @@
      height: 95%;
      min-width: 50%;
      max-width: 100%;
-     font-size: 30px;
+     font-size: x-large;
      align-items: center;
      justify-content: center;
      text-align: center;
@@ -263,10 +203,6 @@
 
  .preview-left-col {
      display: flex;
-     flex-direction: column;
-     max-width: 40%;
-     border-right: 2px solid var(--lightgrey-color);
-
  }
 
  .viewer-left-col {
@@ -280,12 +216,9 @@
 
  .set-textarea {
      width: 95%;
-     height: 70%;
      border-radius: 5px;
      border: 2px solid var(--grey-color);
      resize: none;
-
-
  }
 
  .set-img-input {
@@ -311,7 +244,7 @@
  }
 
  .set-btn {
-     color: rgb(70, 70, 70);
+     color: var(--grey-color);
      border-radius: 5px;
      outline-color: var(--grey-color);
      outline-width: 2px;
@@ -323,7 +256,7 @@
  }
 
  .set-btn-big {
-     color: rgb(70, 70, 70);
+     color: var(--grey-color);
      border-radius: 5px;
      outline-color: var(--grey-color);
      outline-width: 2px;
@@ -342,11 +275,12 @@
  }
 
  .set-btn:disabled {
-    background-color: var(--grey-color);
-    color: var(--lightgrey-color);
-}
+     background-color: var(--grey-color);
+     color: var(--lightgrey-color);
+ }
 
  .set-name-input-div {
+     font-size: xx-large;
      display: flex;
      flex-direction: column;
      align-items: start;
@@ -356,15 +290,14 @@
  }
 
  .set-name-input {
+    font-size: xx-large;
      border-radius: 5px;
      border: 2px solid var(--grey-color);
      margin: 1px;
-     font-size: 20px;
      padding: 2px;
  }
 
  .set-name-label {
-     font-size: 20px;
      margin: auto 2px auto;
  }
 
@@ -385,6 +318,6 @@
      justify-content: space-evenly;
  }
 
- .counter-txt{
-    font-size: large;
+ .counter-txt {
+     font-size: large;
  }

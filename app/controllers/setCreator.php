@@ -247,7 +247,7 @@ class SetCreator extends Controller
                     ];
 
                     try {
-                        $saved_img = saveFile($img, $user->id);
+                        $saved_img = saveFile($img, $set->id);
                         if ($card_info["cardSide"] == "front") {
                             $card->question_img_url = $saved_img;
                         } else {
@@ -279,10 +279,14 @@ class SetCreator extends Controller
         if (isset($_COOKIE['user_id'])) {
             $user->getById($_COOKIE["user_id"]);
         }
+        $ids = explode("_", $imagePath);
+        $set = new Set();
+        $set->find_by_id($ids[2]);
+
         $img_path = BASE_PATH . '/uploads/' . $imagePath;
 
         if (file_exists($img_path)) {
-            if ($user->exists()) {
+            if ($set->isOwnedBy($user->id) || !$set->private) {
                 $mimeType = mime_content_type($img_path);
                 header('Content-Type: ' . $mimeType);
                 header('Content-Length: ' . filesize($img_path));
@@ -301,7 +305,7 @@ class SetCreator extends Controller
     }
 }
 
-function saveFile($file,  $author_id)
+function saveFile($file,  $set_id)
 {
     $uploadDirectory = BASE_PATH . '/uploads/';
     // Ensure the upload directory exists
@@ -318,7 +322,7 @@ function saveFile($file,  $author_id)
         throw new Exception("File upload error: " . $file['error']);
     }
 
-    $uniqueFileName = uniqid() . '_' . $author_id;
+    $uniqueFileName = uniqid() . '_' . $set_id;
     $filePath = $uploadDirectory . $uniqueFileName;
 
     if (!move_uploaded_file($file['tmp_name'], $filePath)) {

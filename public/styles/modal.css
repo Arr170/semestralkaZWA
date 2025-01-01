@@ -66,6 +66,7 @@
 
 .modal-content {
     padding: 20px;
+    display: flex;
 }
 
 
@@ -139,3 +140,8 @@ form {
     color: var(--red-color);
 }
 
+.in-modal-img {
+    max-width: 90%;
+    margin: auto;
+    top: 11%;
+}

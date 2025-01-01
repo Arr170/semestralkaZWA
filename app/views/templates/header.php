@@ -23,6 +23,12 @@ $nav = '
     </div>
 </div>
 
+<div class="modal" name="img-modal" id="img-modal">
+    <div class="modal-content center">
+        <img id="card-img-modal" alt="card image" class="in-modal-img center">
+    </div>
+</div>
+
 <div class="modal" name="signup-modal" id="signup-modal">
 
     <div class="modal-content">
