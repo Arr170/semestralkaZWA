@@ -56,7 +56,7 @@ function loadSet() {
 }
 
 function controllerManager() {
-    if (page == activeSet.cards.length -1) {
+    if (page == activeSet.cards.length - 1) {
         nextBtn.setAttribute("disabled", "true")
     } else {
         nextBtn.removeAttribute("disabled")
@@ -71,26 +71,40 @@ function controllerManager() {
 }
 
 function showAnswer() {
-    cardText.textContent = activeCard.answer ? activeCard.answer : ""
-    if (activeCard.answer_image_url) {
-        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url
-        imgCol.classList.remove("hidden")
+    if (activeCard.answer) {
+        cardText.textContent = activeCard.answer
+        cardText.style.display = "flex"
     }
     else {
-        imgCol.classList.add("hidden")
+        cardText.style.display = "none"
+    }
+
+    if (activeCard.answer_image_url) {
+        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url
+        imgCol.style.display = "flex"
+    }
+    else {
+        imgCol.style.display = "none"
     }
     cardSign.innerHTML = "Answer:"
 
 }
 
 function showQuestion() {
-    cardText.textContent = activeCard.question ? activeCard.question : ""
-    if (activeCard.question_image_url) {
-        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url
-        cardImg.classList.remove("hidden")
+    if (activeCard.question) {
+        cardText.textContent = activeCard.question
+        cardText.style.display = "flex"
     }
     else {
-        cardImg.classList.add("hidden")
+        cardText.style.display = "none"
+    }
+
+    if (activeCard.question_image_url) {
+        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url
+        imgCol.style.display = "flex"
+    }
+    else {
+        imgCol.style.display = "none"
     }
     cardSign.innerHTML = "Question:"
 }
@@ -99,13 +113,11 @@ function handleShowBtn() {
     if (side === "q") {
         side = "a"
         showAnswer()
-        controllerManager()
 
     }
     else if (side === "a") {
         side = "q"
         showQuestion()
-        controllerManager()
     }
 }
 
@@ -115,6 +127,7 @@ function showNext() {
         activeCard = activeSet.cards[page]
         showQuestion()
     }
+    controllerManager()
 
 }
 
@@ -124,6 +137,7 @@ function showPrev() {
         activeCard = activeSet.cards[page]
         showQuestion()
     }
+    controllerManager()
 }
 
 

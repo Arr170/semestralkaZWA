@@ -75,6 +75,10 @@ body {
     margin-right: auto;
 }
 
+.center-all{
+    margin: auto;
+}
+
 .text-center{
     text-align: center;
 }
@@ -203,7 +207,7 @@ body {
     text-align: center;
     border-radius: 15px;
     border: none;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     border: 2px solid var(--darkred-color);
 

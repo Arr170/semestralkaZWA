@@ -28,8 +28,8 @@
 
             </div>
             <div id="flipper" class="set-flipper center">
-                <button class="set-btn" id="flip-front" disabled>Front side</button>
-                <button class="set-btn" id="flip-back">Back side</button>
+                <button class="set-btn" id="flip-front" disabled>Question</button>
+                <button class="set-btn" id="flip-back"> Answer </button>
             </div>
             <div id="active-card" class="set-text-input-container">
                 <textarea id="set-card-text" class="set-textarea text-center" maxlength="150"></textarea>

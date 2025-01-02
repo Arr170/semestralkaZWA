@@ -41,6 +41,8 @@
          height: 95%;
          min-width: 90%;
          max-width: 95%;
+         font-size: 40px;
+         padding: 20px 5px;
      }
 
      .set-viewer-controller {
@@ -162,8 +164,9 @@
      }
 
      .set-preview-text {
-         min-width: 50%;
+         min-width: 70%;
          max-width: 100%;
+         font-size: xx-large;
      }
 
      .set-change-mode {
@@ -251,11 +254,10 @@
      /* margin: 5px; */
      display: flex;
      height: 95%;
-
-     font-size: xx-large;
      align-items: center;
      justify-content: center;
      text-align: center;
+     vertical-align: middle;
  }
 
  .preview-left-col {

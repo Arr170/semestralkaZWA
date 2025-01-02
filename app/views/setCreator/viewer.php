@@ -18,7 +18,7 @@
         <h1 class="text-center" id="card-sign"></h1>
         <div class="set-card-viewer">
             <div class="viewer-left-col" id="left-col">
-                <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL; ?>/public/static/answer.png">
+                <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL; ?>/public/static/question.png">
             </div>
             <textarea id="card-text" class="set-preview-text center" disabled>
 
