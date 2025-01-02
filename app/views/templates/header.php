@@ -1,7 +1,7 @@
 <?php
 $nav = '
-<script src="' . BASE_URL . '/public/scripts/nav.js" type="module" defer></script>
-<div class="modal" name="login-modal" id="login-modal">
+<script src="' . BASE_URL . '/public/scripts/nav.js" type="module"></script>
+<div class="modal" id="login-modal">
 
     <div class="modal-content">
 
@@ -23,32 +23,32 @@ $nav = '
     </div>
 </div>
 
-<div class="modal" name="img-modal" id="img-modal">
+<div class="modal" id="img-modal">
     <div class="modal-content center">
-        <img id="card-img-modal" alt="card image" class="in-modal-img center">
+        <img id="card-img-modal" alt="card image" class="in-modal-img center" src="'.BASE_URL.'/public/static/answer.png">
     </div>
 </div>
 
-<div class="modal" name="signup-modal" id="signup-modal">
+<div class="modal" id="signup-modal">
 
     <div class="modal-content">
 
         <form class="bg-lightgrey form" id="signup-form">
             <div class="inputdiv">
                 <label class="form-label" for="sign-email-input">E-mail:</label>
-                <input class="form-input" type="email" id="sign-email-input" name="email" required/>
+                <input class="form-input" placeholder="address@mail.com" type="email" id="sign-email-input" name="email" required/>
             </div>
                 <div class="inputdiv">
-                <label class="form-label" for="username">Username:</label>
-                <input class="form-input" type="text" id="sign-username-input" name="username" required/>
+                <label class="form-label" for="sign-username-input">Username:</label>
+                <input class="form-input" placeholder="Username" type="text" id="sign-username-input" name="username" required/>
             </div>
             <div class="inputdiv">
-                <label class="form-label" for="pass-input">Password:</label>
-                <input class="form-input" type="password" id="sign-pass-input" name="password" pattern=".{8,}" required/>
+                <label class="form-label" for="sign-pass-input">Password:</label>
+                <input class="form-input" placeholder="At least 8 characters. Includes numbers and letters." type="password" id="sign-pass-input" name="password" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
             </div>
             <div class="inputdiv">
-                <label class="form-label" for="rep-pass-input">Repeat password:</label>
-                <input class="form-input" type="password" id="sign-rep-pass-input" pattern=".{8,}" required/>
+                <label class="form-label" for="sign-rep-pass-input">Repeat password:</label>
+                <input class="form-input" placeholder="At least 8 characters. Includes numbers and letters." type="password" id="sign-rep-pass-input" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
             </div>
             <span id="signup-warning" class="warning-sign"></span>
             <div class="inputdiv">

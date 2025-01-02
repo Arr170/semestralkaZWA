@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
-<head>
+<head >
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
     <title>
-        test
+        Index
     </title>
 </head>
 
@@ -14,7 +14,7 @@
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
     <div class="page-body">
         <h1 class="center text-center">Popular sets:</h1>
-        <form method="GET" action="" class="search-form">
+        <form method="GET" class="search-form">
             <input oninput="this.form.submit()"
                 autofocus
                 type="text"

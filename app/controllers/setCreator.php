@@ -29,8 +29,6 @@ class SetCreator extends Controller
         $user = new UserModel();
         if (isset($_COOKIE["user_id"])) {
             $user->getById($_COOKIE["user_id"]);
-        } else {
-            $user = null;
         }
 
         $set = new Set();
@@ -111,6 +109,33 @@ class SetCreator extends Controller
         }
     }
 
+    public function deleteCard($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+            $user = new UserModel();
+            $card = new Card();
+            $card->find_by_id($id);
+            $set = new Set();
+            $set->find_by_id($card->set_id);
+
+            if (isset($_COOKIE["user_id"])) {
+                $user->getById($_COOKIE["user_id"]);
+            }
+
+            if ($user->exists() && $set->isOwnedBy($user->id)) {
+                $card->remove();
+                echo "deleted";
+                exit;
+            } else {
+                http_response_code(401);
+                exit;
+            }
+        } else {
+            echo "bad";
+            exit;
+        }
+    }
+
     public function updateSetPrivate($id)
     {
         $user = new UserModel();
@@ -125,7 +150,6 @@ class SetCreator extends Controller
             $user->getById($_COOKIE["user_id"]);
         }
         if ($user->isAdmin() || $set->isOwnedBy($user->id)) {
-            // check if it works
             $set->private = $data["isPrivate"] ? "true" : "false";
             $set->update();
             http_response_code(200);
@@ -255,6 +279,8 @@ class SetCreator extends Controller
                         }
                     } catch (Exception $e) {
                         echo "Error saving question image: " . $e->getMessage() . "\n";
+                        http_response_code(500);
+                        echo "Error while saving image.";
                     }
                     $card->update();
                     echo json_encode($card);
@@ -294,7 +320,7 @@ class SetCreator extends Controller
                 exit;
             } else {
                 http_response_code(401);
-                echo "Access denied.".$set->private;
+                echo "Access denied." . $set->private;
                 exit;
             }
         } else {
@@ -308,7 +334,7 @@ class SetCreator extends Controller
 function saveFile($file,  $set_id)
 {
     $uploadDirectory = BASE_PATH . '/uploads/';
-    // Ensure the upload directory exists
+    
     if (!is_dir($uploadDirectory)) {
         mkdir($uploadDirectory, 0777, true);
     }

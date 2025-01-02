@@ -1,6 +1,6 @@
 <?php
 
-define('DB_PATH', dirname(__DIR__, 2) . '/database.db');
+define('DB_PATH', dirname(__DIR__, 2) . '/db/database.db');
 class Database {
     private $conn;
 

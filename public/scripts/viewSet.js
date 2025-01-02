@@ -7,6 +7,8 @@ const nextBtn = document.getElementById("next-btn")
 const prevBtn = document.getElementById("prev-btn")
 const modalImg = document.getElementById("card-img-modal")
 const imgModal = document.getElementById("img-modal")
+const imgCol = document.getElementById("left-col")
+const cardSign = document.getElementById("card-sign")
 
 const html = new XMLHttpRequest()
 let BASE_URL = ""
@@ -21,24 +23,22 @@ let activeCard = null
 let page = 0
 let side = null
 
-export function loadSet() {
+function loadSet() {
     const url = window.location.href
     const parts = url.split("/")
     const urlLen = parts.length
     const viewerPos = parts.indexOf("viewer")
     const setId = parts[viewerPos + 1]
 
-    console.log("loading set", setId)
 
     if (setId) {
-        console.log("set id:", setId)
         html.onload = () => {
             try {
                 const jsonData = JSON.parse(html.response)
                 parseResponse(jsonData)
                 //setName.value = jsonData.name
             } catch (error) {
-                console.error("Failed to parse JSON:", error)
+                alert("Failed to parse JSON:", error)
             }
 
         }
@@ -55,29 +55,57 @@ export function loadSet() {
     }
 }
 
+function controllerManager() {
+    if (page == activeSet.cards.length -1) {
+        nextBtn.setAttribute("disabled", "true")
+    } else {
+        nextBtn.removeAttribute("disabled")
+    }
+
+
+    if (page == 0) {
+        prevBtn.setAttribute("disabled", "true")
+    } else {
+        prevBtn.removeAttribute("disabled")
+    }
+}
+
 function showAnswer() {
-    // cardText.innerHTML = activeCard.answer ? activeCard.answer.replace(/\n/g, '<br>') : ""
     cardText.textContent = activeCard.answer ? activeCard.answer : ""
-    cardImg.src = activeCard.answer_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url : BASE_URL + "/public/static/answer.png"
+    if (activeCard.answer_image_url) {
+        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.answer_image_url
+        imgCol.classList.remove("hidden")
+    }
+    else {
+        imgCol.classList.add("hidden")
+    }
+    cardSign.innerHTML = "Answer:"
 
 }
 
 function showQuestion() {
-    // cardText.innerHTML = activeCard.question ? activeCard.question.replace(/\n/g, '<br>') : ""
     cardText.textContent = activeCard.question ? activeCard.question : ""
-    cardImg.src = activeCard.question_image_url ? BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url : BASE_URL + "/public/static/question.png"
-
+    if (activeCard.question_image_url) {
+        cardImg.src = BASE_URL + "/setCreator/serveImg/" + activeCard.question_image_url
+        cardImg.classList.remove("hidden")
+    }
+    else {
+        cardImg.classList.add("hidden")
+    }
+    cardSign.innerHTML = "Question:"
 }
 
 function handleShowBtn() {
     if (side === "q") {
         side = "a"
         showAnswer()
+        controllerManager()
 
     }
     else if (side === "a") {
         side = "q"
         showQuestion()
+        controllerManager()
     }
 }
 
@@ -106,7 +134,6 @@ function parseResponse(response) {
     set.is_private = response.is_private
     set.name = response.name
     response.cards.forEach(c => {
-        console.log("adding card" + c.id)
         let card = new Card()
         card.id = c.id
         card.set_id = c.set_id
@@ -124,14 +151,8 @@ function parseResponse(response) {
 }
 
 function showImgBig() {
-    console.log("hello?")
-
-
     modalImg.src = cardImg.src
     imgModal.style.display = "block"
-
-
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -139,10 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 window.addEventListener("click", (event) => {
-    console.log(event.target)
     if (event.target == imgModal || event.target == modalImg) {
         imgModal.style.display = "none"
-        console.log("closing")
     }
 })
 

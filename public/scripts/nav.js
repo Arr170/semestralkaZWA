@@ -15,7 +15,6 @@ if (url.includes("~kupriars")) {
     BASE_URL = "/~kupriars"
 }
 
-console.log(logoutBtn)
 
 window.onclick = function (event) {
     if (event.target == loginModal || event.target == signupModal) {
@@ -44,13 +43,26 @@ function checkPasswords(event) {
     const repass = document.getElementById("sign-rep-pass-input")
 
     if (pass !== repass) {
-        console.log("passwords check failed")
         event.preventDefault()
         warning.style.display = "block"
         warning.innerHTML = "Passwords don't match!"
         return false
     }
+    if(!validatePassword(pass)){
+        event.preventDefault()
+        warning.style.display = "block"
+        warning.innerHTML = "Password must be at least 8 characters long and include both numbers and letters!"
+        return false
+    }
     return true
+}
+
+function validatePassword(password) {
+    const minLength = 8;
+    const containsNumber = /\d/;
+    const containsLetter = /[a-zA-Z]/;
+
+    return password.length >= minLength && containsNumber.test(password) && containsLetter.test(password);
 }
 
 async function handleLogin(event) {
@@ -103,14 +115,12 @@ async function handleSignup(event) {
 }
 
 async function handleLogout() {
-    console.log("logging out")
     try {
-        const response = await fetch(BASE_URL + "/user/logout", {
-            method: 'POST'
-        })
+        const response = await fetch(BASE_URL + "/user/logout")
         if (response.ok) {
-            console.log(response)
+            //is not needed, but to be on the safe side delete cookies in all possible ways
             document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "user_role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             location.href = BASE_URL + '/'
         }
     }

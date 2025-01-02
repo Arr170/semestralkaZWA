@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
     <script src="<?php echo BASE_URL; ?>/public/scripts/admin.js" type="module" defer></script>
-    <title>Test</title>
+    <title>Admin</title>
 </head>
 
 <body class="bg-light">
@@ -125,7 +125,7 @@
 
 
                     foreach ($paginatedUsers as $user) {
-                        if (!$searchTerm || stripos($user->username, $searchTerm) !== false || stripos($user->id, $searchTerm) !== false) {
+                        if (!$searchTermUser || stripos($user->username, $searchTerm) !== false || stripos($user->id, $searchTerm) !== false) {
                             echo '
                         <tr>
                             <td>

@@ -21,6 +21,10 @@ class User extends Controller
             ];
 
             $this->view("user/index", $data);
+        } else {
+            http_response_code(401);
+            echo "Not authorized!";
+            exit;
         }
     }
 
@@ -37,7 +41,7 @@ class User extends Controller
             $this->view("user/admin", $data);
         } else {
             http_response_code(401);
-            echo "bad";
+            echo "Not authorized!";
             exit;
         }
     }
@@ -49,8 +53,6 @@ class User extends Controller
         } else {
             $email = $_POST["email"];
             $password = $_POST["password"];
-
-            //echo $password;
 
             $user = new UserModel();
             $user->getByEmail($email);
@@ -78,22 +80,15 @@ class User extends Controller
 
     public function logout()
     {
-        if ($_SERVER["REQUEST_METHOD"] != "POST") {
-            echo "bad";
-        } else {
-            setcookie("user_id", "", time() - 3600);
-            setcookie("user_role",  "", time() - 3600);
-            // session_start();
-            // session_unset();
-            // session_destroy();
-            // $_SESSION = array();
-            $data = [
-                "status" => "ok",
-                "message" => "logged out"
-            ];
 
-            echo (json_encode($data));
-        }
+        setcookie("user_id", "", time() - 3600, "/");
+        setcookie("user_role",  "", time() - 3600, "/");
+        $data = [
+            "status" => "ok",
+            "message" => "logged out"
+        ];
+
+        echo (json_encode($data));
     }
 
     public function signup()
@@ -113,6 +108,15 @@ class User extends Controller
                 $data = (object)[];
                 $data->status =  "bad";
                 $data->message = "User with this email already exists!";
+
+                http_response_code(409);
+
+                echo json_encode($data);
+                exit();
+            } else if (!validatePassword($password)) {
+                $data = (object)[];
+                $data->status =  "bad";
+                $data->message = "Wrong password format!";
 
                 http_response_code(409);
 
@@ -160,4 +164,14 @@ class User extends Controller
             exit;
         }
     }
+}
+
+
+function validatePassword($password)
+{
+    $minLen = 8;
+    $containsNumber = preg_match('/\d/', $password);
+    $containsLetter = preg_match('/[a-zA-Z]/', $password);
+
+    return strlen($password) >= $minLen && $containsNumber && $containsLetter;
 }

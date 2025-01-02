@@ -126,7 +126,7 @@ class Set{
      * @return array with all found public sets
      */
     public function getAllPublicSets(){
-        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE private = 'false';");
+        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE private = 'false' ORDER BY views DESC;");
         $query->execute();
 
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -145,7 +145,7 @@ class Set{
      * @return array with all found sets by athor id
      */
     public function getSetsByOwner($author_id){
-        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE author_id = '$author_id';");
+        $query = $this->conn->prepare("SELECT * FROM card_sets WHERE author_id = '$author_id' ORDER BY views DESC;");
         $query->execute();
 
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -164,7 +164,7 @@ class Set{
      * @return array with all found sets
      */
     public function getAllSets(){
-        $query = $this->conn->prepare("SELECT * FROM card_sets;");
+        $query = $this->conn->prepare("SELECT * FROM card_sets ORDER BY views DESC;");
         $query->execute();
 
         $result = $query->fetchAll(PDO::FETCH_ASSOC);

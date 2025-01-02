@@ -89,6 +89,13 @@ class Card{
             $query->execute();
         }
     }
+    public function remove(){
+        if($this->id){
+            $query = $this->conn->prepare("DELETE FROM cards
+            WHERE id = '$this->id';");
+            $query->execute();
+        }
+    }
 
     
 }

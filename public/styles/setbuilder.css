@@ -45,7 +45,18 @@
 
      .set-viewer-controller {
          left: 5%;
-         bottom: 10%;
+         bottom: 5%;
+         position: fixed;
+         display: flex;
+         flex-direction: row;
+         flex-wrap: wrap;
+         justify-content: space-evenly;
+         width: 90%;
+     }
+
+     .set-change-mode {
+         left: 5%;
+         bottom: 1%;
          position: fixed;
          display: flex;
          flex-direction: row;
@@ -66,6 +77,25 @@
          height: 70%;
      }
 
+     .counter-txt {
+         font-size: xx-large;
+     }
+
+     .set-viewer-btn {
+         font-size: 50px;
+     }
+
+     .set-name-input-div {
+         font-size: 50px;
+     }
+
+     .set-name-input {
+         font-size: 50px;
+     }
+
+     .set-check-input {
+         transform: scale(3);
+     }
  }
 
  /* Large devices (laptops/desktops, 992px and up) */
@@ -115,7 +145,11 @@
      }
 
      .set-btn-big {
-         font-size: 40px;
+         font-size: xx-large;
+     }
+
+     .set-viewer-btn {
+         font-size: xx-large;
      }
 
      .set-btn {
@@ -127,8 +161,31 @@
          font-size: large;
      }
 
+     .set-preview-text {
+         min-width: 50%;
+         max-width: 100%;
+     }
+
+     .set-change-mode {
+         margin: 10px;
+     }
+
+     .counter-txt {
+         font-size: large;
+     }
+
+     .set-name-input-div {
+         font-size: x-large;
+     }
 
 
+     .set-name-input {
+         font-size: x-large;
+     }
+
+     .set-check-input {
+         transform: scale(2);
+     }
  }
 
 
@@ -194,8 +251,7 @@
      /* margin: 5px; */
      display: flex;
      height: 95%;
-     min-width: 50%;
-     max-width: 100%;
+
      font-size: xx-large;
      align-items: center;
      justify-content: center;
@@ -241,7 +297,6 @@
      max-width: 100%;
      max-height: 100%;
      border-radius: 5px;
-     /* margin: 3px; */
  }
 
  .set-btn {
@@ -251,9 +306,11 @@
      outline-width: 2px;
      outline-style: solid;
      font-weight: bold;
-     width: fit-content;
+     min-width: fit-content;
+     width: 30%;
      border: none;
-     margin: 3px;
+     margin: 5px;
+     padding: 5px 10px;
  }
 
  .set-btn-big {
@@ -267,7 +324,24 @@
      width: 30%;
      height: max-content;
      border: none;
-     margin: 3px
+     margin: 3px;
+     padding: 5px 10px;
+     text-decoration: none;
+ }
+
+ .set-viewer-btn {
+     color: var(--grey-color);
+     border-radius: 5px;
+     outline-color: var(--grey-color);
+     outline-width: 2px;
+     outline-style: solid;
+     font-weight: bold;
+     min-width: 30%;
+     height: max-content;
+     border: none;
+     margin: 3px;
+     padding: 5px 10px;
+     text-decoration: none;
  }
 
  .set-btn:hover {
@@ -281,26 +355,25 @@
  }
 
  .set-name-input-div {
-     font-size: xx-large;
      display: flex;
      flex-direction: column;
-     align-items: start;
-     /* justify-content: space-evenly; */
+     align-items: center;
+     justify-content: center;
      margin: 3px;
      min-height: 10%;
+     width: 60%;
  }
 
  .set-name-input {
-     font-size: xx-large;
-     border-radius: 5px;
+     border-radius: 10px;
      border: 2px solid var(--grey-color);
      margin: 1px;
      padding: 2px;
  }
 
- .set-check-input{
-    transform: scale(2);
-    vertical-align: middle;
+ .set-check-input {
+     vertical-align: middle;
+     margin: 5px;
  }
 
  .set-name-label {
@@ -321,9 +394,7 @@
  .set-viewer-controller {
      display: flex;
      flex-direction: row;
+     flex-wrap: wrap;
      justify-content: space-evenly;
- }
-
- .counter-txt {
-     font-size: large;
+     row-gap: 5px;
  }

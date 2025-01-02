@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
     <title>
-        test
+        User
     </title>
 </head>
 
@@ -17,7 +17,7 @@
 
     <div class="page-body">
         <h1 class="center text-center"><?php echo $data["username"];?>'s sets:</h1>
-        <form method="GET" action="" class="search-form">
+        <form method="GET" class="search-form">
             <input oninput="this.form.submit()"
                 autofocus
                 type="text"
@@ -45,7 +45,6 @@
             $paginatedSets = array_slice($filteredSets, $offset, $perPage);
             ?>
             <div class="card bg-warning">
-                <div class="card-content">
                     <a href="<?php echo BASE_URL; ?>/setCreator/index" class="simple-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
                             viewBox="0 0 16 16">
@@ -54,13 +53,10 @@
                                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                         </svg>
                     </a>
-
-                </div>
-
             </div>
             <?php  foreach ($paginatedSets as $set): ?>
                 <div class="card bg-warning">
-                    <a href="./setCreator/viewer/<?php echo $set->id; ?>" class="simple-link">
+                    <a href="<?php echo BASE_URL; ?>/setCreator/viewer/<?php echo $set->id; ?>" class="simple-link">
 
                         <h1 class="center">
                             <?php echo htmlspecialchars($set->name); ?>

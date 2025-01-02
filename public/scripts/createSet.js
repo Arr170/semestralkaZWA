@@ -13,9 +13,10 @@ const previewFront = document.getElementById("set-preview-question")
 const previewBack = document.getElementById("set-preview-answer")
 const previewFrontImg = document.getElementById("img-preview-front")
 const previewBackImg = document.getElementById("img-preview-back")
-const submitBtn = document.getElementById("submit-btn")
 const counterSpan = document.getElementById("counter")
 const privateCheckBtn = document.getElementById("set-private")
+const deleteCardBtn = document.getElementById("delete-card-btn")
+const deleteSetBtn = document.getElementById("delete-set-btn")
 
 const html = new XMLHttpRequest()
 let BASE_URL = ""
@@ -45,7 +46,7 @@ export function loadSet() {
 
 
     html.onerror = () => {
-        console.log("some kind of error while uploading set")
+        alert("Error while uploading set!")
     }
 
     if (setId) {
@@ -70,7 +71,7 @@ export function loadSet() {
                 setUrlId(jsonData.id)
                 
             } catch (error) {
-                console.error("Failed to parse JSON:", error)
+                alert("Failed to parse JSON:", error)
             }
 
         }
@@ -82,8 +83,6 @@ export function loadSet() {
 
 function controllerManager() {
     const cardsInSet = activeSet.cards.length
-    console.log(activeSet.cards)
-    console.log("there are ", cardsInSet, "cards in this set")
     if (page == 0) {
         ctrlLeft.setAttribute("disabled", "true")
     }
@@ -112,7 +111,6 @@ function controllerManager() {
 
 
 function addNewCard() {
-    //preventCardDelete()
     html.onload = () => {
         const jsonData = JSON.parse(html.response)
         activeCard = new Card()
@@ -129,7 +127,7 @@ function addNewCard() {
     }
 
     html.onerror = () => {
-        console.log("error in adding new cards")
+        alert("Error in adding new cards!")
     }
 
     html.open("GET", BASE_URL + "/setCreator/newCard/" + activeSet.id)
@@ -159,7 +157,6 @@ function parseResponse(response) {
     privateCheckBtn.checked = set.is_private == "true"? true : false;
     set.name = response.name
     response.cards.forEach(c => {
-        console.log("adding card" + c.id)
         let card = new Card()
         card.id = c.id
         card.set_id = c.set_id
@@ -171,7 +168,6 @@ function parseResponse(response) {
     })
     activeSet = set
     activeCard = set.cards[0]
-    console.log("in parsing", activeSet)
 
     page = 0
     loadCard("front")
@@ -183,7 +179,6 @@ function loadCard(side) {
     if (side === "front") {
         activeSide = "front"
         cardText.value = activeCard.question
-        //add loading of img
     }
     else {
         cardText.value = activeCard.answer
@@ -192,8 +187,6 @@ function loadCard(side) {
 }
 
 function prevCard() {
-    //preventCardDelete()
-    // add: + flip to front side
     if (page > 0) {
         page -= 1
         activeCard = activeSet.cards[page]
@@ -205,8 +198,6 @@ function prevCard() {
 
 
 function nextCard() {
-    //preventCardDelete()
-    // add: + flip to front side
     const cardsInSet = activeSet.cards.length
     if (page < cardsInSet - 1) {
         page += 1
@@ -222,7 +213,7 @@ function updateSetName() {
     activeSet.name = setName.value
     html.onload = () => { }
     html.onerror = () => {
-        console.log("update name error")
+        alert("somethign went wrong. Update name error")
     }
 
     html.open("POST", BASE_URL + "/setCreator/updateSetName/" + activeSet.id)
@@ -239,7 +230,7 @@ function updatePrivateSetting() {
     activeSet.is_private = privateCheckBtn.checked
     html.onload = () => { }
     html.onerror = () => {
-        console.log("update name error")
+        alert("Something went wring. Update private error")
     }
 
     html.open("POST", BASE_URL + "/setCreator/updateSetPrivate/" + activeSet.id)
@@ -254,7 +245,6 @@ function updatePrivateSetting() {
 export function loadPreviewImgFront() {
     const img = activeCard.question_image
     const imgUrl = activeCard.question_image_url
-    //console.log("img url front", imgUrl)
 
     if (imgUrl) {
         previewFrontImg.src = BASE_URL + "/setCreator/serveImg/" + imgUrl
@@ -265,11 +255,8 @@ export function loadPreviewImgFront() {
         reader.addEventListener(
             "load",
             (activeCard) => {
-                // convert image file to base64 string
-                //console.log("front img loaded")
                 activeCard.question_image_url = reader.result
                 previewFrontImg.src = reader.result
-                //console.log(reader.result)
             },
             { once: true }
         )
@@ -285,7 +272,6 @@ export function loadPreviewImgFront() {
 export function loadPreviewImgBack() {
     const img = activeCard.answer_image
     const imgUrl = activeCard.answer_image_url
-    console.log("img url back", imgUrl)
 
     if (imgUrl) {
         previewBackImg.src = BASE_URL + "/setCreator/serveImg/" + imgUrl
@@ -296,11 +282,8 @@ export function loadPreviewImgBack() {
         reader.addEventListener(
             "load",
             () => {
-                console.log("back img loaded")
-                // convert image file to base64 string
                 activeCard.answer_image_url = reader.result
                 previewBackImg.src = reader.result
-                console.log(reader.result)
             },
             { once: true }
         )
@@ -342,7 +325,7 @@ function updateCardText() {
 
     }
     html.onerror = () => {
-        console.log("update name error")
+        alert("Error while updating card name")
     }
 
     let data = null
@@ -401,7 +384,7 @@ function updateCardImg() {
         }
     }
     html.onerror = () => {
-        console.log("update name error")
+        alert("Error while updating image.")
     }
 
     html.open("POST", BASE_URL + "/setCreator/updateCardImg/" + activeCard.id)
@@ -421,6 +404,42 @@ function updateCounter(cardsInSet) {
     counterSpan.textContent = (page + 1) + '/' + cardsInSet
 }
 
+function deleteCard(){
+    if(confirm("Are you sure you want delete this card?")){
+        if(activeSet.cards.length > 1){
+
+        html.onload = () => {
+            location.reload()
+        }
+        html.onerror = () => {
+            alert("Something went wrong while deliting card.")
+            location.reload()
+        }
+        html.open("DELETE", BASE_URL+"/setCreator/deleteCard/"+activeCard.id)
+        html.send()
+        }
+        else{
+            alert("Set can not be empty. You can delete the set.")
+        }
+    }
+}
+
+function deleteSet(){
+    if(confirm("Are you sure you want delete this set?")){
+
+        html.onload = () => {
+            location.href = BASE_URL+"/user/"
+        }
+        html.onerror = () => {
+            alert("Something went wrong while deliting set.")
+            location.reload()
+        }
+        html.open("DELETE", BASE_URL+"/setCreator/delete/"+activeSet.id)
+        html.send()
+
+    }
+}
+
 
 setName.addEventListener("focusout", updateSetName)
 cardText.addEventListener("focusout", updateCardText)
@@ -431,10 +450,9 @@ ctrlLeft.addEventListener("click", prevCard)
 ctrlRight.addEventListener("click", nextCard)
 addBtn.addEventListener("click", addNewCard)
 privateCheckBtn.addEventListener("change", updatePrivateSetting)
-//submitBtn.addEventListener("click", uploadSet);
-
+deleteCardBtn.addEventListener("click", deleteCard)
+deleteSetBtn.addEventListener("click", deleteSet)
 addEventListener("DOMContentLoaded", () => {
-    console.log("content loaded")
     loadSet()
 })
 

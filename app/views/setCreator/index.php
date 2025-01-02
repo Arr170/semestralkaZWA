@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/styles/style.css">
-    <script src="<?php echo BASE_URL; ?>/public/scripts/createSet.js" type="module" defer></script>
+    <script src="<?php echo BASE_URL; ?>/public/scripts/createSet.js" type="module"></script>
     <title>
         Creating set
     </title>
@@ -16,13 +16,14 @@
     <div class="set-builder-container">
         <div id="set-container" class="set-container center no-print">
             <div class="set-name-input-div center">
-                <div >
-                    <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
-                    <input name="set-name" id="set-name" class="set-name-input center">
-                </div>
-                <div >
+                <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
+                <input name="set-name" id="set-name" class="set-name-input">
+            </div>
+            <div class="set-name-input-div center">
+                <div>
                     <label for="set-private" class="set-name-label">Make private:</label>
                     <input type="checkbox" id="set-private" class="set-check-input" checked>
+
                 </div>
 
             </div>
@@ -31,22 +32,22 @@
                 <button class="set-btn" id="flip-back">Back side</button>
             </div>
             <div id="active-card" class="set-text-input-container">
-                <textarea id="set-card-text" class="set-textarea"></textarea>
+                <textarea id="set-card-text" class="set-textarea text-center" maxlength="150"></textarea>
                 <input id="set-card-img" type="file" class="set-img-input" accept="image/png, image/jpeg">
             </div>
             <span class="center counter-txt" id="counter">
                 0/0
             </span>
             <div id="controler" class="set-controller center">
-                <button class="set-btn-big" id="go-back">
+                <button class="set-btn" id="go-back">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" fill="currentColor"
                         class="bi bi-arrow-left" viewBox="0 0 15 15">
                         <path fill-rule="evenodd"
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg>
                 </button>
-                <button class="set-btn-big" id="add-new">Add</button>
-                <button class="set-btn-big" id="go-forward">
+                <button class="set-btn" id="add-new">Add</button>
+                <button class="set-btn" id="go-forward">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" fill="currentColor"
                         viewBox="0 0 15 15">
                         <path fill-rule="evenodd"
@@ -56,6 +57,7 @@
             </div>
             <div class="center">
                 <button id="delete-card-btn" class="set-btn">Delete card</button>
+                <button id="delete-set-btn" class="set-btn">Delete set</button>
             </div>
         </div>
         <div class="set-container center print-small" id="set-preview-container">
