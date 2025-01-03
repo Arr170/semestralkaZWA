@@ -1,10 +1,15 @@
 :root {
     --black-color: #195962;
-    --grey-color: #7e8086;
+    --grey-color: #76777c;
     --white-color: #FFFFFF;
-    --red-color: #F56F6C;
+    --red-color: #f56e6cc5;
+    --reder-color: #f56e6cec;
     --darkred-color: #a74c4b;
     --blue-color: #195962;
     --lightgrey-color: #e1e1e3;
     --lightgrey2-color: #d2d2d3;
+}
+
+.text-grey{
+    color: var(--grey-color)
 }

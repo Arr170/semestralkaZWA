@@ -15,7 +15,7 @@
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
 
     <div id="card-container" class="page-body">
-        <h1 class="text-center" id="card-sign"></h1>
+        <h1 class="text-center text-grey mobile-bigger" id="card-sign"></h1>
         <div class="set-card-viewer">
             <div class="viewer-left-col" id="left-col">
                 <img id="card-img" class="set-viewer-img" alt="card image" src="<?php echo BASE_URL; ?>/public/static/question.png">

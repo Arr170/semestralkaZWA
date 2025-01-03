@@ -11,7 +11,7 @@
 
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
 
-    <div class="page-body profile-container print-small">
+    <div class="page-body profile-container print-small text-grey">
         <div class="table-container" id="set-list">
             <form method="GET" action="" class="search-form no-print">
                 <input type="text" name="set-search" placeholder="Search set by name or id" class="form-input"

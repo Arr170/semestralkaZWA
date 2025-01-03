@@ -39,21 +39,22 @@ $nav = '
                 <input class="form-input" placeholder="address@mail.com" type="email" id="sign-email-input" name="email" required/>
             </div>
                 <div class="inputdiv">
-                <label class="form-label" for="sign-username-input">Username:</label>
+                <label class="form-label" for="sign-username-input" maxlength="20">Username:</label>
                 <input class="form-input" placeholder="Username" type="text" id="sign-username-input" name="username" required/>
             </div>
             <div class="inputdiv">
                 <label class="form-label" for="sign-pass-input">Password:</label>
-                <input class="form-input" placeholder="At least 8 characters. Includes numbers and letters." type="password" id="sign-pass-input" name="password" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
+                <input class="form-input"  placeholder="********" type="password" id="sign-pass-input" name="password" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
             </div>
             <div class="inputdiv">
                 <label class="form-label" for="sign-rep-pass-input">Repeat password:</label>
-                <input class="form-input" placeholder="At least 8 characters. Includes numbers and letters." type="password" id="sign-rep-pass-input" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
+                <input class="form-input" placeholder="********" type="password" id="sign-rep-pass-input" pattern="^(?=.*[a-zA-Z])(?=.*\d).{8,}$" required/>
             </div>
             <span id="signup-warning" class="warning-sign"></span>
             <div class="inputdiv">
                 <button type="submit" class="form-btn bg-lightgrey2 text-secondary">Submit</button>
             </div>
+            <p class="form-sign">Password should be least 8 characters long, include numbers and letters.</p>
         </form>
     </div>
 </div>

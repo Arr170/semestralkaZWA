@@ -27,7 +27,7 @@ class Set{
     }
 
     /**
-     * searches for set by its id and sets all values of class
+     * Searches for set by its id and sets all values of class
      * @param mixed $id
      * @return void
      */
@@ -77,7 +77,7 @@ class Set{
     }
 
     /**
-     * adds to database record with set
+     * Add record with this set to database
      * @return void
      */
     public function add(){
@@ -89,7 +89,7 @@ class Set{
     }
 
     /**
-     * removes row entry from database
+     * Removes set from database
      * @return void
      */
     public function remove(){
@@ -104,7 +104,7 @@ class Set{
         $query->execute();
     }
     /**
-     * updates row entry with values of set
+     * Updates row entry in database
      * @return void
      */
     public function update(){
@@ -116,6 +116,10 @@ class Set{
         $query->execute();
     }
 
+    /**
+     * Increasing views count for this set
+     * @return void
+     */
     public function addView(){
         $this->views += 1;
         $this->update();

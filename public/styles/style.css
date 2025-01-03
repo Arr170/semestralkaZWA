@@ -10,6 +10,7 @@
 body {
     padding: 0px;
     height: 100vh;
+    font-family: "Arial", sans-serif;
 }
 
 .hidden {
@@ -116,7 +117,7 @@ body {
 
     .profile-container{
         flex-direction: column;
-        justify-content: start;
+        justify-content: center;
         gap: 15%;
     }
 
@@ -138,7 +139,7 @@ body {
     }
 
     .search-form{
-        width: 100%;
+        max-width: 100%;
     }
 
 }
@@ -194,7 +195,8 @@ body {
 
 .simple-link{
     text-decoration: none;
-    color: var(--darkgrey-color);
+    color: var(--grey-color);
+    font-weight: bold;
     height: 100%;
     width: 100%;
     padding: 10px;
@@ -211,12 +213,13 @@ body {
     align-items: center;
     border: 2px solid var(--darkred-color);
 
+
 }
 
 .card:hover {
-    /* filter: brightness(90%); */
     scale: 101%;
     border: 3px solid var(--darkred-color);
+    background-color: var(--reder-color);
 }
 
 .w-50{

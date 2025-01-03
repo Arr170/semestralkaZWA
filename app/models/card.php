@@ -29,6 +29,11 @@ class Card{
         $this->conn = $db->connect();
     }
 
+    /**
+     * Searches for card with provided id
+     * @param string $id card id
+     * @return void
+     */
     public function find_by_id($id){
         $query = $this->conn->prepare("SELECT * FROM cards
         WHERE id = '$id';");
@@ -45,6 +50,11 @@ class Card{
         }
     }
 
+    /**
+     * Searches for cards with provided set_id
+     * @param string $set_id
+     * @return array|null found cards
+     */
     public function find_by_owner($set_id): array|null {
         $query = $this->conn->prepare("SELECT * FROM cards
         WHERE set_id = '$set_id';");
@@ -66,6 +76,10 @@ class Card{
         return null;
     }
 
+    /**
+     * Adds card to database
+     * @return void
+     */
     public function add(){
         if(!$this->id){
             $this->id = uniqid();
@@ -77,6 +91,10 @@ class Card{
         }
     }
 
+    /**
+     * Updase row entry in database with card values
+     * @return void
+     */
     public function update(){
         if($this->id){
             $query = $this->conn->prepare("UPDATE cards
@@ -89,6 +107,11 @@ class Card{
             $query->execute();
         }
     }
+
+    /**
+     * Removes card from database
+     * @return void
+     */
     public function remove(){
         if($this->id){
             $query = $this->conn->prepare("DELETE FROM cards

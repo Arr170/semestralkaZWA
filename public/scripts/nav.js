@@ -38,20 +38,19 @@ function closeModals() {
     loginModal.style.display = "none"
 }
 
-function checkPasswords(event) {
+function checkPasswords() {
+    console.log("checking passwords")
     const pass = document.getElementById("sign-pass-input")
     const repass = document.getElementById("sign-rep-pass-input")
 
     if (pass !== repass) {
-        event.preventDefault()
-        warning.style.display = "block"
-        warning.innerHTML = "Passwords don't match!"
+        signupWarning.style.display = "block"
+        signupWarning.innerHTML = "Passwords don't match!"
         return false
     }
-    if(!validatePassword(pass)){
-        event.preventDefault()
-        warning.style.display = "block"
-        warning.innerHTML = "Password must be at least 8 characters long and include both numbers and letters!"
+    if (!validatePassword(pass)) {
+        signupWarning.style.display = "block"
+        signupWarning.innerHTML = "Password must be at least 8 characters long and include both numbers and letters!"
         return false
     }
     return true
@@ -67,6 +66,7 @@ function validatePassword(password) {
 
 async function handleLogin(event) {
     event.preventDefault()
+
     const form = new FormData()
     try {
         const formData = new FormData(loginForm)
@@ -88,28 +88,32 @@ async function handleLogin(event) {
         console.error(error)
     }
 
+
+
 }
 
 async function handleSignup(event) {
     event.preventDefault()
-    try {
-        const formData = new FormData(signupForm)
-        const response = await fetch(BASE_URL + "/user/signup", {
-            method: 'POST',
-            body: formData,
-        })
-        const result = await response.json()
-        if (response.ok) {
-            closeModals()
-            location.reload()
-        } else {
-            signupWarning.style.display = "block"
-            signupWarning.innerHTML = result.message;
+    if (checkPasswords()) {
+        try {
+            const formData = new FormData(signupForm)
+            const response = await fetch(BASE_URL + "/user/signup", {
+                method: 'POST',
+                body: formData,
+            })
+            const result = await response.json()
+            if (response.ok) {
+                closeModals()
+                location.reload()
+            } else {
+                signupWarning.style.display = "block"
+                signupWarning.innerHTML = result.message;
+            }
+
+
+        } catch (error) {
+            console.error(error)
         }
-
-
-    } catch (error) {
-        console.error(error)
     }
 
 }

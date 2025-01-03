@@ -13,7 +13,7 @@
 <body class="bg-light">
     <?php include BASE_PATH . "/app/views/templates/header.php"; ?>
     <div class="page-body">
-        <h1 class="center text-center">Popular sets:</h1>
+        <h1 class="center text-center text-grey">Popular sets:</h1>
         <form method="GET" class="search-form">
             <input oninput="this.form.submit()"
                 autofocus

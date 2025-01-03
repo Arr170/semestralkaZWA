@@ -42,7 +42,7 @@
          min-width: 90%;
          max-width: 95%;
          font-size: 40px;
-         padding: 20px 5px;
+         padding: 30px 5px;
      }
 
      .set-viewer-controller {
@@ -98,9 +98,12 @@
      .set-check-input {
          transform: scale(3);
      }
+
+     .mobile-bigger{
+        font-size: 50px;
+     }
  }
 
- /* Large devices (laptops/desktops, 992px and up) */
  @media (min-width: 992px) {
      .set-builder-container {
          /* position: fixed; */
@@ -164,8 +167,7 @@
      }
 
      .set-preview-text {
-         min-width: 70%;
-         max-width: 100%;
+         width: 60%;
          font-size: xx-large;
      }
 
@@ -289,7 +291,7 @@
  .set-preview-img {
      margin-left: auto;
      margin-right: auto;
-     max-width: 100%;
+     max-width: 95%;
      max-height: 80%;
      border-radius: 5px
  }

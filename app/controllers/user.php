@@ -5,9 +5,17 @@ require_once __DIR__ . "/../models/user.php";
 require_once __DIR__ . "/../models/set.php";
 require_once __DIR__ . "/../models/card.php";
 
+/**
+ * Controlls user creation and views
+ */
 class User extends Controller
 {
 
+    /**
+     * Renders user profile page.
+     * User must be logged in.
+     * @return void
+     */
     public function index()
     {
         if (isset($_COOKIE["user_id"])) {
@@ -28,6 +36,11 @@ class User extends Controller
         }
     }
 
+    /**
+     * Renders admin profile page.
+     * User should be logged in with admin page
+     * @return void
+     */
     public function admin()
     {
         if (isset($_COOKIE["user_id"]) && isset($_COOKIE["user_role"]) && $_COOKIE["user_role"] == "admin") {
@@ -45,6 +58,15 @@ class User extends Controller
             exit;
         }
     }
+
+    /**
+     * Handles user log in. 
+     * Recieves POST requests, if credentials are right, logs in user and sets cookies.
+     * keys:
+     * -"email" user email
+     * -"password" user password
+     * @return void
+     */
     public function login()
     {
         session_start();
@@ -78,6 +100,11 @@ class User extends Controller
         }
     }
 
+    /**
+     * Handles user log out.
+     * Deletes all user cookies.
+     * @return void
+     */
     public function logout()
     {
 
@@ -91,6 +118,16 @@ class User extends Controller
         echo (json_encode($data));
     }
 
+    /**
+     * Handles user sign up.
+     * Checks if password parameters is right and email is not used already.
+     * Logs in user on success.
+     * keys:
+     * -"username" 
+     * -"email"
+     * -"password"
+     * @return void
+     */
     public function signup()
     {
         if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -140,6 +177,11 @@ class User extends Controller
         }
     }
 
+    /**
+     * Deletes user, reachable only for admins
+     * @param string $id user id
+     * @return never
+     */
     public function delete($id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
@@ -166,7 +208,11 @@ class User extends Controller
     }
 }
 
-
+/**
+ * Validates if password is at least 8 characters long and includes letters and numbers.
+ * @param string $password
+ * @return bool
+ */
 function validatePassword($password)
 {
     $minLen = 8;

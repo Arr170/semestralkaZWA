@@ -16,7 +16,7 @@
 
 
     <div class="page-body">
-        <h1 class="center text-center"><?php echo $data["username"];?>'s sets:</h1>
+        <h1 class="center text-center text-grey mobile-bigger"><?php echo $data["username"];?>'s sets:</h1>
         <form method="GET" class="search-form">
             <input oninput="this.form.submit()"
                 autofocus

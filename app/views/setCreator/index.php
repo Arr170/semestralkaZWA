@@ -16,7 +16,7 @@
     <div class="set-builder-container">
         <div id="set-container" class="set-container center no-print">
             <div class="set-name-input-div center">
-                <label for="set-name" id="set-name-label" class="set-name-label">Cards set name:</label>
+                <label for="set-name" id="set-name-label" class="set-name-label" maxlength="15">Cards set name:</label>
                 <input name="set-name" id="set-name" class="set-name-input">
             </div>
             <div class="set-name-input-div center">
@@ -32,7 +32,7 @@
                 <button class="set-btn" id="flip-back"> Answer </button>
             </div>
             <div id="active-card" class="set-text-input-container">
-                <textarea id="set-card-text" class="set-textarea text-center" maxlength="150"></textarea>
+                <textarea id="set-card-text" class="set-textarea text-center" maxlength="500"></textarea>
                 <input id="set-card-img" type="file" class="set-img-input" accept="image/png, image/jpeg">
             </div>
             <span class="center counter-txt" id="counter">

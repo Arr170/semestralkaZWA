@@ -23,6 +23,11 @@ class UserModel
         $this->conn = $db->connect();
     }
 
+    /**
+     * Searches for user by provided id
+     * @param string $id user id
+     * @return void
+     */
     function getById($id)
     {
         $query = $this->conn->prepare("SELECT * FROM users WHERE id = '$id';");
@@ -39,6 +44,11 @@ class UserModel
         }
     }
 
+    /**
+     * Searches for user by probided email
+     * @param string $email
+     * @return void
+     */
     function getByEmail($email)
     {
         $query = $this->conn->prepare("SELECT * FROM users WHERE email='$email';");
@@ -54,6 +64,10 @@ class UserModel
         }
     }
 
+    /**
+     * Adds user class to database
+     * @return void
+     */
     function add()
     {
         if (!$this->id) {
@@ -89,6 +103,10 @@ class UserModel
         }
     }
 
+    /**
+     * Checks if this user exists in database
+     * @return bool true if exists
+     */
     function exists()
     {
         $query = $this->conn->prepare("SELECT * FROM users WHERE
@@ -98,6 +116,10 @@ class UserModel
         return ($results && $results["id"] == $this->id);
     }
 
+    /**
+     * Checks if user has role admin
+     * @return bool true if is admin
+     */
     function isAdmin()
     {
         $query = $this->conn->prepare("SELECT * FROM users WHERE
@@ -108,8 +130,8 @@ class UserModel
     }
 
     /**
-     * returns array with all user with role "user"
-     * @return array
+     * returns array with all users with role "user"
+     * @return array all found users
      */
     function getAll()
     {

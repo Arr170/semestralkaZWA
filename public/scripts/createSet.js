@@ -243,24 +243,10 @@ function updatePrivateSetting() {
 }
 
 export function loadPreviewImgFront() {
-    const img = activeCard.question_image
     const imgUrl = activeCard.question_image_url
 
     if (imgUrl) {
         previewFrontImg.src = BASE_URL + "/setCreator/serveImg/" + imgUrl
-        return
-    }
-
-    if (img) {
-        reader.addEventListener(
-            "load",
-            (activeCard) => {
-                activeCard.question_image_url = reader.result
-                previewFrontImg.src = reader.result
-            },
-            { once: true }
-        )
-        reader.readAsDataURL(img)
     }
     else {
         previewFrontImg.src = BASE_URL + "/public/static/question.png"
@@ -270,24 +256,10 @@ export function loadPreviewImgFront() {
 }
 
 export function loadPreviewImgBack() {
-    const img = activeCard.answer_image
     const imgUrl = activeCard.answer_image_url
 
     if (imgUrl) {
         previewBackImg.src = BASE_URL + "/setCreator/serveImg/" + imgUrl
-        return
-    }
-
-    if (img) {
-        reader.addEventListener(
-            "load",
-            () => {
-                activeCard.answer_image_url = reader.result
-                previewBackImg.src = reader.result
-            },
-            { once: true }
-        )
-        reader.readAsDataURL(img)
     }
     else {
         previewBackImg.src = BASE_URL + "/public/static/answer.png"
@@ -357,6 +329,56 @@ function updateCardText() {
     html.send(data)
 }
 
+function resizeImg(file) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader()
+
+        reader.onload = function(event) {
+            img.src = event.target.result
+        };
+
+        reader.onerror = function() {
+            reject("Error reading file.")
+        };
+
+        reader.readAsDataURL(file)
+
+        img.onload = function() {
+
+            const max_h = 512
+            const max_w = 512
+            const ratio = img.height / img.width
+
+            let new_h = img.height
+            let new_w = img.width
+
+            if (img.height != max_h) {
+                new_h = max_h
+                new_w = Math.round(max_h / ratio)
+            }
+
+            if (new_w != max_w) {
+                new_w = max_w
+                new_h = Math.round(ratio * new_w)
+            }
+
+            const canvas = document.createElement("canvas")
+            const context = canvas.getContext("2d")
+
+            canvas.width = new_w
+            canvas.height = new_h
+
+            context.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+            canvas.toBlob((blob) => {
+                const resizedFile = new File([blob], file.name, { type: file.type })
+                resolve(resizedFile)
+            }, file.type)
+        }
+    })
+}
+
 function updateCardImg() {
     const formData = new FormData()
 
@@ -364,41 +386,40 @@ function updateCardImg() {
         setId: activeSet.id,
         cardId: activeCard.id,
         cardSide: activeSide,
-    })
+    });
 
     formData.append("cardInfo", cardInfo)
 
-    formData.append("image", cardImg.files[0])
+    const file = cardImg.files[0]
 
-    const updatingCard = activeCard
+    resizeImg(file).then((resizedFile) => {
+        formData.append("image", resizedFile)
 
-    html.onload = (updatingCard, activeSide) => {
-        const jsonData = JSON.parse(html.response)
-        if (activeSide === "front") {
-            updatingCard.question_image_url = jsonData.question_img_url
-            //loadPreviewImgFront()
-        }
-        else {
-            updatingCard.answer_image_url = jsonData.answer_img_url
-            //loadPreviewImgBack()
-        }
-    }
-    html.onerror = () => {
-        alert("Error while updating image.")
-    }
+        const html = new XMLHttpRequest()
+        html.onload = () => {
+            const jsonData = JSON.parse(html.response)
+            console.log(jsonData)
+            if (activeSide == "front") {
+                activeCard.question_image_url = jsonData.question_img_url
+                loadPreviewImgFront()
+            } else {
+                activeCard.answer_image_url = jsonData.answer_img_url
+                loadPreviewImgBack()
+            }
+        };
 
-    html.open("POST", BASE_URL + "/setCreator/updateCardImg/" + activeCard.id)
-    html.send(formData)
+        html.onerror = () => {
+            alert("Error while updating image.")
+        };
 
-    if (activeSide === "front") {
-        activeCard.question_image = cardImg.files[0]
-        loadPreviewImgFront()
-    }
-    else {
-        activeCard.answer_image = cardImg.files[0]
-        loadPreviewImgBack()
-    }
-}
+        html.open("POST", BASE_URL + "/setCreator/updateCardImg/" + activeCard.id)
+        html.send(formData)
+
+    }).catch((err) => {
+        console.error("Error resizing image: ", err)
+    })
+}   
+
 
 function updateCounter(cardsInSet) {
     counterSpan.textContent = (page + 1) + '/' + cardsInSet

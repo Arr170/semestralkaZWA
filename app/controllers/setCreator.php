@@ -6,8 +6,16 @@ require_once __DIR__ . "/../models/card.php";
 require_once __DIR__ . "/../models/user.php";
 
 
+/**
+ * Controlls sets creation and views
+ */
 class SetCreator extends Controller
 {
+    /**
+     * renders set editor page
+     * @param string $id set id
+     * @return void
+     */
     public function index($id = null)
     {
         $user = new UserModel();
@@ -24,6 +32,11 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * renders set viewer page
+     * @param string $id set id
+     * @return void
+     */
     public function viewer($id)
     {
         $user = new UserModel();
@@ -43,6 +56,12 @@ class SetCreator extends Controller
         $this->view("setCreator/viewer",  $data);
     }
 
+    /**
+     * Creates new set in database ano first card.
+     * Respondes JSON with set
+     * only for logged in users
+     * @return void
+     */
     public function initSet()
     {
         $user = new UserModel();
@@ -66,7 +85,12 @@ class SetCreator extends Controller
         }
     }
 
-
+    /**
+     * Respondes JSON with requested set
+     * For owners of private set, for every user for public set
+     * @param string $id set id
+     * @return never
+     */
     public function get($id)
     {
         $getSet = new Set();
@@ -87,6 +111,13 @@ class SetCreator extends Controller
             exit;
         }
     }
+
+    /**
+     * Deletes set with requested id
+     * For owners of set or admin
+     * @param string $id set id
+     * @return never
+     */
     public function delete($id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
@@ -109,6 +140,12 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * Deletes card with requested id
+     * For owners of set
+     * @param string $id card id
+     * @return never
+     */
     public function deleteCard($id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
@@ -136,6 +173,13 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * Updates is_private property of set, value passed in POST request
+     * key: "isPrivate"
+     * For owner of requested set
+     * @param string $id set id
+     * @return never
+     */
     public function updateSetPrivate($id)
     {
         $user = new UserModel();
@@ -160,6 +204,13 @@ class SetCreator extends Controller
         exit;
     }
 
+    /**
+     * Updates set name of requested set
+     * key: "newName"
+     * For owner of requested set
+     * @param string $id set id
+     * @return never
+     */
     public function updateSetName($id)
     {
         $user = new UserModel();
@@ -174,8 +225,7 @@ class SetCreator extends Controller
             $user->getById($_COOKIE["user_id"]);
 
             if ($user->isAdmin() || $set->isOwnedBy($user->id)) {
-                // check if it works
-                $set->name = $data["newName"];
+                $set->name = substr($data["newName"], 0, 20);
                 $set->update();
                 http_response_code(201);
                 exit;
@@ -189,6 +239,17 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * Updates card text of requested card
+     * keys: 
+     * -"setId" of parent set
+     * -"id" card id
+     * -"side" side of card to update
+     * -"text" text to insert into card      
+     * For owner of requested card
+     * @param string $id card id
+     * @return never
+     */
     public function updateCardText($id)
     {
         $input_str = file_get_contents("php://input");
@@ -221,6 +282,13 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * Creates new card and places it in set with $setId
+     * For owner of set
+     * Respondes JSON with new card
+     * @param string $setId
+     * @return never
+     */
     public function newCard($setId)
     {
         $user = new UserModel();
@@ -244,6 +312,18 @@ class SetCreator extends Controller
             exit;
         }
     }
+
+    /**
+     * Updated image of card 
+     * For owner of card
+     * Respondes with updated card
+     * keys:
+     * -"image" file with uploaded image
+     * -"setId" id of set to update
+     * -"cardId" id of card to update
+     * @param string $id
+     * @return void
+     */
     public function updateCardImg($id)
     {
         $card_info_str = $_POST["cardInfo"] ?? null;
@@ -270,8 +350,9 @@ class SetCreator extends Controller
                         'size' => $_FILES["image"]["size"],
                     ];
 
+
                     try {
-                        $saved_img = saveFile($img, $set->id);
+                        $saved_img = saveImg($img, $set->id);
                         if ($card_info["cardSide"] == "front") {
                             $card->question_img_url = $saved_img;
                         } else {
@@ -298,6 +379,12 @@ class SetCreator extends Controller
         }
     }
 
+    /**
+     * Respondes with image for provided path
+     * For owner of private set or all user for public set
+     * @param mixed $imagePath
+     * @return never
+     */
     public function serveImg($imagePath)
     {
 
@@ -331,7 +418,15 @@ class SetCreator extends Controller
     }
 }
 
-function saveFile($file,  $set_id)
+/**
+ * Saves image in /upload/ folder
+ * For owner of updated set
+ * @param mixed $file image to save
+ * @param string $set_id id of updated set
+ * @throws \Exception in every error
+ * @return string name of saved image file
+ */
+function saveImg($file,  $set_id)
 {
     $uploadDirectory = BASE_PATH . '/uploads/';
     
